@@ -1,5 +1,5 @@
 import MainLayout from "@/components/layouts/MainLayout";
-import styles from "./ativos.module.css";
+import styles from "./home.module.css";
 
 const HomePage = () => {
   return (

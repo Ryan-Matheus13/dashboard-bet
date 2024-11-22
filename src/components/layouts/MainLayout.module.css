@@ -1,6 +1,6 @@
 .main {
   flex: 1;
-  background-color: #d6f6f6;
+  background-color: #eee;
   display: grid;
   grid-template-columns: 10rem auto;
   grid-template-rows: 4rem auto;
@@ -11,7 +11,9 @@
 }
 
 .content {
-  background-color: #f8ffff;
+  background-color: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
   grid-area: content;
   margin: 1rem;
 }

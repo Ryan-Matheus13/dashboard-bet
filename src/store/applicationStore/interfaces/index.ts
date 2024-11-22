@@ -31,9 +31,16 @@ type IApplicationProps = {
   };
 };
 
+type IMenu = {
+  name: string;
+  active: boolean;
+  disabled: boolean;
+  Icon: React.ElementType;
+};
+
 type ISetUser = {
   name: string;
   token: string;
 };
 
-export type { IApplicationProps, ISetUser };
+export type { IApplicationProps, ISetUser, IMenu };

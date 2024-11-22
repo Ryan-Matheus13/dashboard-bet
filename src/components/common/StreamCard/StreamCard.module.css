@@ -1,0 +1,84 @@
+.containerStreamCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid #dcdcdc;
+  padding: 0.5rem 1rem;
+  margin: 0.3rem 0.15rem;
+  background-color: #f8f8f8;
+  max-width: 15rem;
+  cursor: pointer;
+}
+
+.headerStreamCard {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.headerImageStreamCard {
+  border-radius: 0.3rem;
+  flex: 0;
+}
+
+.headerTitleStreamCard {
+  flex: 1;
+  font-size: 1rem;
+  margin: 0 !important;
+}
+
+.divisorStreamCard {
+  margin: 0 !important;
+  height: 2px;
+}
+
+.contentStreamCard {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: 0 0.5rem;
+}
+
+.labelContainerStreamCard {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.labelIconStreamCard {
+  font-size: 0.8rem;
+}
+
+.labelStreamCard {
+  font-size: 0.7rem;
+}
+
+.gameStreamCard {
+  display: flex;
+}
+
+.gameItemStreamCard {
+  background-color: #de4251;
+  padding: 0.3rem 0.6rem;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3rem;
+}
+
+.checkboxContainer {
+  height: 100%;
+  display: flex;
+}
+
+.gameNameStreamCard {
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+.streamCardStatus {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+}

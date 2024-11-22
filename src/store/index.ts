@@ -6,6 +6,8 @@ import { persistReducer, persistStore } from "redux-persist";
 const persistConfigApplication = {
   key: "application",
   storage: storageSession,
+  whitelist: ["application", "auth"],
+  blacklist: ["register"],
 };
 
 const persistedApplicationReducer = persistReducer(

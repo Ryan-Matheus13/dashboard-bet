@@ -6,4 +6,7 @@ export const {
   startLogin,
   setLoginError,
   clearLoginError,
+  setStreams,
+  setLoadStreamsError,
+  clearLoadStreamsError,
 } = applicationSlice.actions;

@@ -1,5 +1,5 @@
 .header {
-  background-color: #5DCDCD;
+  background-color: var(--secondary-color);
   display: flex;
   justify-content: flex-end;
   align-items: center;

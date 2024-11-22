@@ -1,17 +1,19 @@
 .menu {
-  background-color: #035656;
+  background-color: var(--secondary-color);
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
+  padding: 0 10px;
   gap: 30px;
 }
 
 .logo {
   height: auto;
   width: 3.5rem;
+  padding-top: 10px;
 }
 
 .menuItem {
@@ -23,9 +25,22 @@
   border-radius: 0.5rem;
   align-items: center;
 }
+
+.menuItem:hover {
+  cursor: pointer;
+}
+.menuItem:disabled:hover {
+  cursor: not-allowed;
+}
 .menuItemActive {
   color: white;
-  background-color: #00CFC1;
+  background-color: var(--primary-color);
+  width: 100%;
+  display: flex;
+  max-width: 11rem;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  align-items: center;
 }
 .menuText {
   font-size: 1rem;
@@ -33,6 +48,6 @@
   text-align: left;
 }
 .menuSeparator {
-  width: 50%; 
-  border-color: #00CFC1;
+  width: 50%;
+  border-color: #00cfc1;
 }

@@ -51,7 +51,7 @@ const LoginForm: React.FC = () => {
         const data = await response.json();
         dispatch(setUser({ name: data.nome, token: data.token }));
         toast.success("Login efetuado com sucesso!");
-        router.push("/dashboard/home");
+        router.push("/dashboard/streams");
       } else {
         const data = await response.json();
         dispatch(setLoginError(data.message));

@@ -15,11 +15,13 @@ const apiCore = axios.create({
 
 apiCore.interceptors.request.use(async (config) => {
   const { auth } = useAppSelector((store) => store.application);
+  console.log("token: ", auth.user.token);
   config.headers = {
     Authorization: `Bearer ${auth.user.token}`,
     Accept: "application/json",
     AccessControlAllowOrigin: "Origin",
     AccessControlAllowMethods: "DELETE, POST, GET, OPTIONS",
+    Origin: "http://localhost:3000",
     AccessControlAllowHeaders:
       "accept, authorization, content-type, user-agent, x-csrftoken, x-requested-with",
     "ngrok-skip-browser-warning": "any",
@@ -31,7 +33,7 @@ apiCore.interceptors.request.use(async (config) => {
 apiCore.interceptors.response.use(
   (resp) => resp,
   async (error) => {
-    return error.response;
+    return error;
   }
 );
 

@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import styles from "../../styles/login.module.css";
-
+import AuthLayout from "@/components/layouts/AuthLayout";
 import LoginForm from "@/components/forms/LoginForm/LoginForm";
 
 export async function getServerSideProps() {
@@ -8,7 +9,7 @@ export async function getServerSideProps() {
   return { props: { imageSrc } };
 }
 
-export default function LoginPage({ imageSrc }: { imageSrc: string }) {
+const LoginPage = ({ imageSrc }: { imageSrc: string }) => {
   return (
     <section className={"page-container"}>
       <div className={styles.login}>
@@ -26,4 +27,10 @@ export default function LoginPage({ imageSrc }: { imageSrc: string }) {
       </div>
     </section>
   );
-}
+};
+
+LoginPage.getLayout = function getLayout(page: React.ReactElement) {
+  return <AuthLayout>{page}</AuthLayout>;
+};
+
+export default LoginPage;

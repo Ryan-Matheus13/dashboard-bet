@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { applicationInitialState } from "./initialState";
 import { ISetUser } from "./interfaces";
@@ -53,6 +54,19 @@ export const applicationSlice = createSlice({
     clearLoginError(state) {
       state.auth.loading = false;
       state.auth.error = null;
+    },
+
+    setStreams(state, action: PayloadAction<any>) {
+      console.log("payload: ", action.payload);
+      state.application.streams.data = action.payload;
+      state.application.streams.loading = false;
+    },
+    setLoadStreamsError(state, action: PayloadAction<string>) {
+      state.application.streams.error = action.payload;
+    },
+    clearLoadStreamsError(state) {
+      state.application.streams.loading = false;
+      state.application.streams.error = null;
     },
   },
 });
