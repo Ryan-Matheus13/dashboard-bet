@@ -1,0 +1,24 @@
+.main {
+  flex: 1;
+  background-color: #d6f6f6;
+  display: grid;
+  grid-template-columns: 10rem auto;
+  grid-template-rows: 4rem auto;
+  grid-template-areas:
+    "menu header"
+    "menu content";
+  transition: grid-template-columns 0.2s ease;
+}
+
+.content {
+  background-color: #f8ffff;
+  grid-area: content;
+  margin: 1rem;
+}
+
+.header {
+  grid-area: header;
+}
+.menu {
+  grid-area: menu;
+}

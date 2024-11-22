@@ -1,0 +1,16 @@
+.profileContainer {
+  display: flex;
+  align-items: flex-start;
+  color: #fff;
+  gap: 5px;
+}
+
+.arrowDownIcon {
+  height: 15px;
+  width: 15px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
