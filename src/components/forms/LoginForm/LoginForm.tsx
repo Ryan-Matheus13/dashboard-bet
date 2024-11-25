@@ -19,6 +19,7 @@ import {
   startLogin,
 } from "@/store/applicationStore/actions";
 import Loading from "@/components/common/Loading/Loading";
+import StorageUtils from "@/utils/utils.helper";
 
 const initialValues: LoginFormValues = {
   username: "",
@@ -50,6 +51,7 @@ const LoginForm: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         dispatch(setUser({ name: data.nome, token: data.token }));
+        StorageUtils.setDataJwtToken(data.token);
         toast.success("Login efetuado com sucesso!");
         router.push("/dashboard/streams");
       } else {

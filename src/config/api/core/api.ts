@@ -1,5 +1,4 @@
 import axios, { AxiosRequestHeaders } from "axios";
-import { useAppSelector } from "@/store/hooks/useAppSelector";
 
 interface IHeaderConfig extends AxiosRequestHeaders {
   Authorization: string;
@@ -14,17 +13,15 @@ const apiCore = axios.create({
 });
 
 apiCore.interceptors.request.use(async (config) => {
-  const { auth } = useAppSelector((store) => store.application);
-  console.log("token: ", auth.user.token);
   config.headers = {
-    Authorization: `Bearer ${auth.user.token}`,
     Accept: "application/json",
     AccessControlAllowOrigin: "Origin",
     AccessControlAllowMethods: "DELETE, POST, GET, OPTIONS",
-    Origin: "http://localhost:3000",
+    Origin: process.env.NEXT_APP_URL,
     AccessControlAllowHeaders:
       "accept, authorization, content-type, user-agent, x-csrftoken, x-requested-with",
     "ngrok-skip-browser-warning": "any",
+    ...config.headers,
   } as unknown as IHeaderConfig;
 
   return config;

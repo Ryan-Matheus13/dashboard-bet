@@ -2,12 +2,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   gap: 0.5rem;
   border: 1px solid #dcdcdc;
   padding: 0.5rem 1rem;
   margin: 0.3rem 0.15rem;
   background-color: #f8f8f8;
   max-width: 15rem;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 
@@ -30,7 +32,9 @@
 
 .divisorStreamCard {
   margin: 0 !important;
-  height: 2px;
+  height: 1px;
+  background-color: #dcdcdc;
+  border: none;
 }
 
 .contentStreamCard {
@@ -81,4 +85,6 @@
   position: absolute;
   right: 1rem;
   top: 0.5rem;
+  width: 1.5rem;
+  font-size: 1rem;
 }

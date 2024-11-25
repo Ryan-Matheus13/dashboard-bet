@@ -5,6 +5,8 @@ import Menu from "../common/Menu/Menu";
 import Header from "../common/Header/Header";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { store } from "@/store";
+import { Provider } from "react-redux";
 
 type MainLayoutProps = {
   children: React.ReactNode;
@@ -18,7 +20,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     setMenuWidth((prevWidth) => (prevWidth === "5rem" ? "15rem" : "5rem"));
   };
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <title>Controle de Recurso</title>
       </Head>
@@ -30,7 +32,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       >
         <Header className={styles.header} />
         <Menu isOpen={isOpen} toggle={toggleMenu} className={styles.menu} />
-        <div className={styles.content}>{children}</div>
+        <div className={styles.content}>
+          <div className={styles.pageContainer}>{children}</div>
+        </div>
       </main>
       <ToastContainer
         position="top-right"
@@ -45,7 +49,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         theme="light"
         transition={Bounce}
       />
-    </>
+    </Provider>
   );
 };
 

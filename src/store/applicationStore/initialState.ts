@@ -13,7 +13,7 @@ export const applicationInitialState: IApplicationProps = {
     streams: {
       data: [],
       error: null,
-      loading: false,
+      loading: true,
     },
     games: {
       data: [],

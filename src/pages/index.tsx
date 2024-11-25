@@ -1,19 +1,16 @@
-// import { useEffect } from "react";
-// import { useRouter } from "next/router";
-import MainLayout from "@/components/layouts/MainLayout";
+import { GetServerSideProps } from "next";
 
-const HomePage = () => {
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   router.push("/dashboard/streams");
-  // }, [router]);
-
-  return null;
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: "/dashboard/streams",
+      permanent: false, // Use false para redirecionamentos temporários (códigos 307/302)
+    },
+  };
 };
 
-HomePage.getLayout = function getLayout(page: React.ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
+const HomePage = () => {
+  return null; // Nada será renderizado no cliente
 };
 
 export default HomePage;

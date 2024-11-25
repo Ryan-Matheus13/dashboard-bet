@@ -14,6 +14,7 @@
     "incremental": true,
     "target": "es5",
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

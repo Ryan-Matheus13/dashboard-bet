@@ -17,8 +17,6 @@ export default async function handler(req, res) {
         }
       );
 
-      console.log("aqui", response);
-
       if (response.status === 200) {
         res.status(200).json(response.data);
       } else if (response.status === 403) {
@@ -27,7 +25,6 @@ export default async function handler(req, res) {
           .json({ message: response.response.data || "Acesso Negado!" });
       }
     } catch (error) {
-      console.log("error: ", error);
       if (error.response) {
         res
           .status(error.response.status)

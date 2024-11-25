@@ -16,8 +16,8 @@ import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import HistoryRoundedIcon from "@mui/icons-material/HistoryRounded";
 import ActionButton from "../ActionButton/ActionButton";
-import { splitArrayIntoChunks } from "@/utils/utils.helper";
 import Pagination from "../Pagination/Pagination";
+import StorageUtils from "@/utils/utils.helper";
 
 const Table: React.FC<TableProps> = ({
   rows,
@@ -31,7 +31,7 @@ const Table: React.FC<TableProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const handleProcessing = () => {
-    const dados = splitArrayIntoChunks(rows);
+    const dados = StorageUtils.splitArrayIntoChunks(rows);
     setData(dados);
     setTotalPages(dados.length);
   };

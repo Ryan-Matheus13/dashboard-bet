@@ -7,7 +7,7 @@ import Loading from "../Loading/Loading";
 
 export default function StreamCalendar({ data, edit }: any) {
   const { application } = useAppSelector((store) => store.application);
-
+  console.log("aaaa ", data);
   return (
     <div className={styles.containerStreamCalendar}>
       {application.streams.loading && <Loading />}

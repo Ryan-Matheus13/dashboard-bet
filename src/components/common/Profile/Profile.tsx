@@ -6,8 +6,12 @@ import { Avatar, Menu, MenuItem, IconButton } from "@mui/material";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDownRounded";
 import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 import { destroySection } from "@/store/applicationStore/actions";
+import StorageUtils from "@/utils/utils.helper";
+import { useRouter } from "next/router";
 
 const Profile: React.FC<ProfileProps> = () => {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -21,7 +25,9 @@ const Profile: React.FC<ProfileProps> = () => {
   };
 
   const handleLogout = () => {
+    router.push("/auth/login");
     dispatch(destroySection());
+    StorageUtils.deleteDataJwtToken();
   };
 
   return (

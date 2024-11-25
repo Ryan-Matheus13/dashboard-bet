@@ -3,6 +3,11 @@
 import React from "react";
 import { StreamCardProps } from "./StreamCard.types";
 import styles from "./StreamCard.module.css"; // Importando o módulo CSS
+import ClockIcon from "@mui/icons-material/WatchLater";
+import EyeIcon from "@mui/icons-material/Visibility";
+import RefreshIcon from "@mui/icons-material/Cached";
+import OnStreamIcon from "@mui/icons-material/Videocam";
+import NoStreamIcon from "@mui/icons-material/VideocamOff";
 
 const types: any = {
   ATUALIZACAO_AUTOMATICA: "Atualização Automática",
@@ -13,17 +18,17 @@ const types: any = {
 const StreamCard = ({ data, onEdit }: StreamCardProps) => {
   return (
     <div onClick={onEdit} className={styles.containerStreamCard}>
-      {/* {data.stream_is_living ? (
-        <i
-          className={`${styles.streamCardStatus} bi bi-camera-video-fill`}
+      {data.stream_is_living ? (
+        <OnStreamIcon
           style={{ color: "green" }}
-        ></i>
+          className={styles.streamCardStatus}
+        />
       ) : (
-        <i
-          className={`${styles.streamCardStatus} bi bi-camera-video-off-fill`}
+        <NoStreamIcon
           style={{ color: "red" }}
-        ></i>
-      )} */}
+          className={styles.streamCardStatus}
+        />
+      )}
       <div className={styles.headerStreamCard}>
         <img
           className={styles.headerImageStreamCard}
@@ -37,10 +42,7 @@ const StreamCard = ({ data, onEdit }: StreamCardProps) => {
       <hr className={styles.divisorStreamCard} />
       <div className={styles.contentStreamCard}>
         <div className={styles.labelContainerStreamCard}>
-          <i
-            style={{ fontSize: "0.7rem" }}
-            className={`${styles.labelIconStreamCard} bi bi-clock-fill`}
-          />
+          <ClockIcon className={styles.labelIconStreamCard} />
           <span className={styles.labelStreamCard}>
             {data.stream_start_hour + " - " + data.stream_end_hour}
           </span>
@@ -49,6 +51,7 @@ const StreamCard = ({ data, onEdit }: StreamCardProps) => {
           {/* <i className={styles.labelIconStreamCard}>
             <i className="bi bi-eye-fill" />
           </i> */}
+          <EyeIcon className={styles.labelIconStreamCard} />
           <span className={styles.labelStreamCard}>
             {data.stream_specs} assistindo
           </span>
@@ -57,6 +60,7 @@ const StreamCard = ({ data, onEdit }: StreamCardProps) => {
           {/* <i className={styles.labelIconStreamCard}>
             <i className="bi bi-arrow-repeat" />
           </i> */}
+          <RefreshIcon className={styles.labelIconStreamCard} />
           <span className={styles.labelStreamCard}>
             {types[data.stream_update_type]}
           </span>

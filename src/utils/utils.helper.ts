@@ -1,97 +1,143 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export function splitArrayIntoChunks<T>(
-  array: T[],
-  chunkSize: number = 20
-): T[][] {
-  const result: T[][] = [];
-  for (let i = 0; i < array.length; i += chunkSize) {
-    const chunk = array.slice(i, i + chunkSize);
-    result.push(chunk);
-  }
-  return result;
-}
-
-export function getWeekDays() {
-  const weekDays = [
-    "Domingo",
-    "Segunda-feira",
-    "Terça-feira",
-    "Quarta-feira",
-    "Quinta-feira",
-    "Sexta-feira",
-    "Sábado",
-  ];
-
-  const result = [];
-  const today = new Date();
-
-  const monday = new Date(today.setDate(today.getDate() - today.getDay() + 1));
-
-  for (let i = 0; i < 7; i++) {
-    const currentDay = new Date(monday);
-    currentDay.setDate(monday.getDate() + i);
-
-    const dayName = weekDays[currentDay.getDay()];
-    const dayNumber = currentDay.getDate();
-    const year = currentDay.getFullYear();
-    const month = currentDay
-      .toLocaleString("pt-BR", { month: "short" })
-      .toUpperCase(); // Nome do mês abreviado
-
-    result.push({ dayName, dayNumber, month, year });
+import Cookies from "js-cookie";
+class StorageUtils {
+  static splitArrayIntoChunks<T>(array: T[], chunkSize: number = 20): T[][] {
+    const result: T[][] = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      const chunk = array.slice(i, i + chunkSize);
+      result.push(chunk);
+    }
+    return result;
   }
 
-  return result;
-}
+  static getWeekDays() {
+    const weekDays = [
+      "Domingo",
+      "Segunda-feira",
+      "Terça-feira",
+      "Quarta-feira",
+      "Quinta-feira",
+      "Sexta-feira",
+      "Sábado",
+    ];
 
-export function transformStreamData(array: any, week_day_number: any) {
-  if (array.length > 0) {
-    const transformedData = {
-      day: "",
-      day_name: "",
-      month: "",
-      year: "",
-      data: array.map((stream: any) => ({
-        stream_id: stream.id,
-        stream_name: stream.liveName,
-        stream_week_day_number: week_day_number,
-        stream_live_link: stream.liveLink,
-        stream_gif: stream.gifImg,
-        stream_start_hour: stream.liveStartHour,
-        stream_end_hour: stream.liveEndHour,
-        stream_specs: stream.audienceLive,
-        stream_is_living: stream.status,
-        stream_update_type: stream.tipoAtualizacao,
-        stream_is_double_size: false,
-        stream_game: {
-          id: stream.game.id,
-          name: stream.game.gameName,
-          icon: stream.game.gameImg,
-          link: stream.game.gameLink,
-        },
-      })),
-    };
+    const result = [];
+    const today = new Date();
 
-    return transformedData;
+    const monday = new Date(
+      today.setDate(today.getDate() - today.getDay() + 1)
+    );
+
+    for (let i = 0; i < 7; i++) {
+      const currentDay = new Date(monday);
+      currentDay.setDate(monday.getDate() + i);
+
+      const dayName = weekDays[currentDay.getDay()];
+      const dayNumber = currentDay.getDate();
+      const year = currentDay.getFullYear();
+      const month = currentDay
+        .toLocaleString("pt-BR", { month: "short" })
+        .toUpperCase(); // Nome do mês abreviado
+
+      result.push({ dayName, dayNumber, month, year });
+    }
+
+    return result;
   }
 
-  return [];
-}
+  static transformStreamData(array: any, week_day_number: any) {
+    if (array.length > 0) {
+      const transformedData = {
+        day: "",
+        day_name: "",
+        month: "",
+        year: "",
+        data: array.map((stream: any) => ({
+          stream_id: stream.id,
+          stream_name: stream.liveName,
+          stream_week_day_number: week_day_number,
+          stream_live_link: stream.liveLink,
+          stream_gif: stream.gifImg,
+          stream_start_hour: stream.liveStartHour,
+          stream_end_hour: stream.liveEndHour,
+          stream_specs: stream.audienceLive,
+          stream_is_living: stream.status,
+          stream_update_type: stream.tipoAtualizacao,
+          stream_is_double_size: false,
+          stream_game: {
+            id: stream.game.id,
+            name: stream.game.gameName,
+            icon: stream.game.gameImg,
+            link: stream.game.gameLink,
+          },
+        })),
+      };
 
-export function getDayName(dayNumber: any) {
-  const weekDays = [
-    "Segunda-feira",
-    "Terça-feira",
-    "Quarta-feira",
-    "Quinta-feira",
-    "Sexta-feira",
-    "Sábado",
-    "Domingo",
-  ];
+      return transformedData;
+    }
 
-  if (dayNumber < 1 || dayNumber > 7) {
-    throw new Error("O número do dia deve estar entre 1 e 7");
+    return [];
   }
 
-  return weekDays[dayNumber - 1];
+  static getDayName(dayNumber: any) {
+    const weekDays = [
+      "Segunda-feira",
+      "Terça-feira",
+      "Quarta-feira",
+      "Quinta-feira",
+      "Sexta-feira",
+      "Sábado",
+      "Domingo",
+    ];
+
+    if (dayNumber < 1 || dayNumber > 7) {
+      throw new Error("O número do dia deve estar entre 1 e 7");
+    }
+
+    return weekDays[dayNumber - 1];
+  }
+
+  static setDataJwtToken(value: string) {
+    // Armazenar o token em um cookie com um tempo de expiração (exemplo: 7 dias)
+    Cookies.set("jwt", value, {
+      expires: 7,
+      secure: true,
+      sameSite: "Strict",
+    });
+    console.log("Token salvo no cookie");
+  }
+
+  // Recupera o token do cookie
+  static getDataJwtToken() {
+    // Verifica se estamos no cliente
+    if (typeof window !== "undefined") {
+      const valueJwtToken = Cookies.get("jwt"); // Recupera o cookie "jwt"
+      console.log("Token do cookie:", valueJwtToken);
+
+      if (!valueJwtToken) {
+        console.log("Nenhum token encontrado no cookie.");
+        return false; // Retorna falso caso o token não exista
+      }
+
+      try {
+        const parsedToken = JSON.parse(valueJwtToken); // Parseia o valor JSON do cookie
+        console.log("Token JSON parseado:", parsedToken);
+        return parsedToken; // Retorna o token parseado
+      } catch (error) {
+        console.error("Erro ao parsear o token:", error);
+        return false; // Retorna falso se não for possível parsear o token
+      }
+    } else {
+      console.log("Cookies não disponíveis no servidor.");
+      return false;
+    }
+  }
+
+  // Remove o token do cookie
+  static deleteDataJwtToken() {
+    Cookies.remove("jwt");
+    console.log("Token removido do cookie");
+  }
 }
+
+export default StorageUtils;

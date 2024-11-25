@@ -2,6 +2,7 @@
   flex: 1;
   background-color: #eee;
   display: grid;
+  height: 100vh;
   grid-template-columns: 10rem auto;
   grid-template-rows: 4rem auto;
   grid-template-areas:
@@ -12,7 +13,6 @@
 
 .content {
   background-color: #fff;
-  border-radius: 1rem;
   overflow: hidden;
   grid-area: content;
   margin: 1rem;
@@ -23,4 +23,9 @@
 }
 .menu {
   grid-area: menu;
+}
+
+.pageContainer {
+  height: 100%;
+  overflow-y: scroll;
 }

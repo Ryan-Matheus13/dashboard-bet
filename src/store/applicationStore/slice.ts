@@ -57,7 +57,6 @@ export const applicationSlice = createSlice({
     },
 
     setStreams(state, action: PayloadAction<any>) {
-      console.log("payload: ", action.payload);
       state.application.streams.data = action.payload;
       state.application.streams.loading = false;
     },

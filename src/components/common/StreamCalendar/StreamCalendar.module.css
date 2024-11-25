@@ -6,6 +6,7 @@
   border: 1px solid #dcdcdc;
   overflow-x: scroll;
   background-color: transparent;
+  color: #555 !important;
 }
 
 .rowStreamCalendar {
