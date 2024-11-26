@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       }
 
       try {
-        const response = await apiCore.get(`/game/`, {
+        const response = await apiCore.get(`/stories/`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
