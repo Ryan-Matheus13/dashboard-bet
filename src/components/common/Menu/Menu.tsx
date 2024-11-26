@@ -7,63 +7,21 @@ import Logo from "../../../../public/images/logo.webp";
 
 import MenuOpen from "@mui/icons-material/MenuOpenRounded";
 import MenuClose from "@mui/icons-material/CloseRounded";
-import CastIcon from "@mui/icons-material/Cast";
-import CasinoIcon from "@mui/icons-material/Casino";
-import WebStoriesIcon from "@mui/icons-material/WebStories";
-import CampaignIcon from "@mui/icons-material/Campaign";
-import PermMediaIcon from "@mui/icons-material/PermMedia";
+
 import { IMenu } from "@/store/applicationStore/interfaces";
-import { useState } from "react";
+import { useAppSelector } from "@/store/hooks/useAppSelector";
+import { useAppDispatch } from "@/store/hooks/useAppDispatch";
+import { setMenu } from "@/store/applicationStore/actions";
+import { useRouter } from "next/router";
 
 const Menu: React.FC<MenuProps> = ({ className, toggle, isOpen }) => {
-  const [menus, setMenus] = useState([
-    {
-      name: "Streams",
-      active: true,
-      disabled: false,
-      Icon: CastIcon,
-    },
-    {
-      name: "Games",
-      active: false,
-      disabled: false,
-      Icon: CasinoIcon,
-    },
-    {
-      name: "Stories",
-      active: false,
-      disabled: false,
-      Icon: WebStoriesIcon,
-    },
-    {
-      name: "Notificações",
-      active: false,
-      disabled: false,
-      Icon: CampaignIcon,
-    },
-    {
-      name: "Banners",
-      active: false,
-      disabled: true,
-      Icon: PermMediaIcon,
-    },
-  ]);
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { menu } = useAppSelector((store) => store.application);
+  const dispatch = useAppDispatch();
 
-  const handleSelectMenu = (index: number) => {
-    setLoading(true);
-    const menuArr = menus;
-    menuArr.map((item: IMenu, i: number) => {
-      if (i === index) {
-        item.active = true;
-      } else {
-        item.active = false;
-      }
-    });
-    setMenus(menuArr);
-    setTimeout(() => {
-      setLoading(false);
-    }, 50);
+  const handleSelectMenu = (index: number, to: string) => {
+    dispatch(setMenu(index));
+    router.push(to);
   };
 
   return (
@@ -77,9 +35,9 @@ const Menu: React.FC<MenuProps> = ({ className, toggle, isOpen }) => {
         {isOpen && <MenuClose fontSize="large" />}
       </IconButton>
 
-      {menus.map((item: IMenu, index: number) => {
+      {menu.data.map((item: IMenu, index: number) => {
         return (
-          <>
+          <div key={index} style={{ width: "100%" }} title={item.name}>
             {item.active && (
               <IconButton
                 key={index}
@@ -94,7 +52,7 @@ const Menu: React.FC<MenuProps> = ({ className, toggle, isOpen }) => {
             {!item.active && (
               <IconButton
                 key={index}
-                onClick={() => handleSelectMenu(index)}
+                onClick={() => handleSelectMenu(index, item.to)}
                 className={styles.menuItem}
                 disabled={item.disabled}
                 sx={{
@@ -109,11 +67,9 @@ const Menu: React.FC<MenuProps> = ({ className, toggle, isOpen }) => {
                 {isOpen && <span className={styles.menuText}>{item.name}</span>}
               </IconButton>
             )}
-          </>
+          </div>
         );
       })}
-
-      {!loading && <div style={{ opacity: 0 }}>render</div>}
     </div>
   );
 };

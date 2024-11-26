@@ -1,40 +1,39 @@
 import React from "react";
-import { TextField } from "@mui/material";
-import { InputFieldProps } from "./InputField.types";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+} from "@mui/material";
+import { SelectFieldProps } from "./SelectField.types";
 
-// const primaryColor: string = process.env.NEXT_PRIMARY_COLOR
-//   ? process.env.NEXT_PRIMARY_COLOR
-//   : "";
+import styles from "./SelectField.module.css";
 
-const InputField: React.FC<InputFieldProps> = ({
+const SelectField: React.FC<SelectFieldProps> = ({
   id,
+  name,
+  disabled,
   label,
-  type = "text",
   value,
   onChange,
+  options,
   error = false,
   helperText,
   ...rest
 }) => {
   return (
-    <TextField
-      id={id}
-      name={id}
-      label={label}
-      type={type}
-      value={value}
-      onChange={onChange}
+    <FormControl
+      className={styles.select}
       error={error}
-      helperText={helperText}
       fullWidth
       variant="outlined"
       margin="normal"
-      {...rest}
       sx={{
         backgroundColor: "rgba(255, 255, 255, 0.07)", // Evite o !important
         color: "white !important",
         minWidth: 200,
-        margin: 0,
+
         "& input:-webkit-autofill": {
           backgroundColor: "#f0f0f0 !important", // Cor do fundo para o autofill,
           color: "white !important",
@@ -54,8 +53,27 @@ const InputField: React.FC<InputFieldProps> = ({
           "& input::placeholder": { color: "yellow" }, // Cor do placeholder para inputs internos
         },
       }}
-    />
+    >
+      {label && <InputLabel id={`${id}-label`}>{label}</InputLabel>}
+      <Select
+        labelId={`${id}-label`}
+        id={id}
+        disabled={disabled ? true : false}
+        name={name}
+        value={value}
+        onChange={onChange}
+        label={label}
+        {...rest}
+      >
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+    </FormControl>
   );
 };
 
-export default InputField;
+export default SelectField;

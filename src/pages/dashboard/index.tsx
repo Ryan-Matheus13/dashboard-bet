@@ -1,12 +1,14 @@
 import MainLayout from "@/components/layouts/MainLayout";
-import styles from "./home.module.css";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const HomePage = () => {
-  return (
-    <div className={styles.home}>
-      <span>Home</span>
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/dashboard/streams");
+  }, [router]);
+  return null;
 };
 
 HomePage.getLayout = function getLayout(page: React.ReactElement) {

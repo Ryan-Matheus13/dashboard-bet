@@ -3,24 +3,33 @@
   flex-direction: column;
   padding: 0 !important;
   margin: 0 !important;
-  border: 1px solid #dcdcdc;
+  /* border: 1px solid #dcdcdc; */
   overflow-x: scroll;
   background-color: transparent;
   color: #555 !important;
+  border-radius: 0.5rem;
+  width: 100%;
+  gap: 1rem;
+}
+
+.containerStreamCalendar::-webkit-scrollbar {
+  display: none;
 }
 
 .rowStreamCalendar {
   background-color: transparent;
   display: flex;
-  gap: 0.3rem;
-  min-height: 10.31rem;
+  gap: 1rem;
 }
 
 .dayContainerStreamCalendar {
   flex: 0;
   display: flex;
   flex-direction: column;
-  min-width: 7.5rem;
+  min-width: 8rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid #dcdcdc;
 }
 
 .dayHeaderStreamCalendar {
@@ -46,15 +55,15 @@
 
 .dayBodyNumberStreamCalendar {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .dayBodyNameStreamCalendar {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 }
 
 .cardsContainerStreamCalendar {
   flex: 1;
   display: flex;
-  gap: 0.15rem;
+  gap: 0.5rem;
 }

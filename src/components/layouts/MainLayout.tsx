@@ -17,7 +17,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
     setIsOpen(isOpen ? false : true);
-    setMenuWidth((prevWidth) => (prevWidth === "5rem" ? "15rem" : "5rem"));
+    setMenuWidth((prevWidth) => (prevWidth === "5rem" ? "12rem" : "5rem"));
   };
   return (
     <Provider store={store}>

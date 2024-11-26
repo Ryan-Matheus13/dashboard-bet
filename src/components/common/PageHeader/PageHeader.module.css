@@ -1,0 +1,36 @@
+.pageHeaderContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+  /* justify-content: space-between; */
+  /* padding: 1rem 0; */
+}
+.pageHeaderTitle {
+  color: #333;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.pageHeaderContent {
+}
+.pageHeaderInputContainer {
+}
+
+.btnRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0;
+}
+
+.btn {
+  background-color: transparent;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

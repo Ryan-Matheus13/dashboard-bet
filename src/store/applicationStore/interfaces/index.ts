@@ -8,6 +8,7 @@ type IApplicationProps = {
     };
   };
   application: {
+    loadingModal: boolean;
     streams: {
       data: Array<string>;
       error: string | null;
@@ -29,10 +30,15 @@ type IApplicationProps = {
       loading: boolean;
     };
   };
+  menu: {
+    loading: boolean;
+    data: Array<IMenu>;
+  };
 };
 
 type IMenu = {
   name: string;
+  to: string;
   active: boolean;
   disabled: boolean;
   Icon: React.ElementType;

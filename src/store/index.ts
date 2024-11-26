@@ -7,7 +7,7 @@ const persistConfigApplication = {
   key: "application",
   storage: storageSession,
   whitelist: ["application", "auth"],
-  blacklist: ["register"],
+  blacklist: ["register", "menu"],
 };
 
 const persistedApplicationReducer = persistReducer(

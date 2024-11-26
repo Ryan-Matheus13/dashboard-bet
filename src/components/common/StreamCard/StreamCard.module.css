@@ -6,11 +6,16 @@
   gap: 0.5rem;
   border: 1px solid #dcdcdc;
   padding: 0.5rem 1rem;
-  margin: 0.3rem 0.15rem;
+  /* margin: 0.3rem 0.15rem; */
   background-color: #f8f8f8;
   max-width: 15rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  min-height: 100%;
+}
+
+.containerStreamCard:hover {
+  background-color: #e7e7e7;
 }
 
 .headerStreamCard {

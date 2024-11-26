@@ -1,15 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { applicationInitialState } from "./initialState";
-import { ISetUser } from "./interfaces";
+import { IMenu, ISetUser } from "./interfaces";
 
 export const applicationSlice = createSlice({
   name: "application",
   initialState: applicationInitialState,
   reducers: {
+    setMenu(state, action: PayloadAction<number>) {
+      state.menu.loading = true;
+      const menus = state.menu.data;
+      menus.map((item: IMenu, i: number) => {
+        if (i === action.payload) {
+          item.active = true;
+        } else {
+          item.active = false;
+        }
+      });
+      state.menu.data = menus;
+      state.menu.loading = false;
+    },
+
     setUser(state, action: PayloadAction<ISetUser>) {
       state.auth.user = action.payload;
-      state.auth.loading = false;
     },
     destroySection(state) {
       state.auth = {
@@ -22,6 +35,7 @@ export const applicationSlice = createSlice({
       };
 
       state.application = {
+        loadingModal: false,
         streams: {
           data: [],
           error: null,
@@ -48,24 +62,23 @@ export const applicationSlice = createSlice({
       state.auth.loading = true;
       state.auth.error = null;
     },
-    setLoginError(state, action: PayloadAction<string>) {
-      state.auth.error = action.payload;
-    },
-    clearLoginError(state) {
-      state.auth.loading = false;
-      state.auth.error = null;
-    },
 
     setStreams(state, action: PayloadAction<any>) {
       state.application.streams.data = action.payload;
       state.application.streams.loading = false;
+      if (state.auth.loading) {
+        state.auth.loading = false;
+      }
     },
-    setLoadStreamsError(state, action: PayloadAction<string>) {
-      state.application.streams.error = action.payload;
+
+    setGames(state, action: PayloadAction<any>) {
+      state.application.games.data = action.payload;
+      state.application.games.loading = false;
     },
-    clearLoadStreamsError(state) {
-      state.application.streams.loading = false;
-      state.application.streams.error = null;
+
+    setStories(state, action: PayloadAction<any>) {
+      state.application.stories.data = action.payload;
+      state.application.stories.loading = false;
     },
   },
 });

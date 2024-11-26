@@ -1,12 +1,11 @@
 import { applicationSlice } from "./slice";
 
 export const {
+  setMenu,
   setUser,
   destroySection,
   startLogin,
-  setLoginError,
-  clearLoginError,
   setStreams,
-  setLoadStreamsError,
-  clearLoadStreamsError,
+  setGames,
+  setStories,
 } = applicationSlice.actions;

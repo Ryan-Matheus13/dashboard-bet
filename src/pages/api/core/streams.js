@@ -19,7 +19,6 @@ export default async function handler(req, res) {
           });
 
           if (response.status === 200) {
-            console.log(response.data);
             const transformedData = StorageUtils.transformStreamData(
               response.data,
               i + 1

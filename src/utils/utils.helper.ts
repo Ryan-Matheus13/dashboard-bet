@@ -110,26 +110,21 @@ class StorageUtils {
   // Recupera o token do cookie
   static getDataJwtToken() {
     // Verifica se estamos no cliente
-    if (typeof window !== "undefined") {
-      const valueJwtToken = Cookies.get("jwt"); // Recupera o cookie "jwt"
-      console.log("Token do cookie:", valueJwtToken);
+    const valueJwtToken = Cookies.get("jwt"); // Recupera o cookie "jwt"
+    console.log("Token do cookie:", valueJwtToken);
 
-      if (!valueJwtToken) {
-        console.log("Nenhum token encontrado no cookie.");
-        return false; // Retorna falso caso o token não exista
-      }
+    if (!valueJwtToken) {
+      console.log("Nenhum token encontrado no cookie.");
+      return false; // Retorna falso caso o token não exista
+    }
 
-      try {
-        const parsedToken = JSON.parse(valueJwtToken); // Parseia o valor JSON do cookie
-        console.log("Token JSON parseado:", parsedToken);
-        return parsedToken; // Retorna o token parseado
-      } catch (error) {
-        console.error("Erro ao parsear o token:", error);
-        return false; // Retorna falso se não for possível parsear o token
-      }
-    } else {
-      console.log("Cookies não disponíveis no servidor.");
-      return false;
+    try {
+      const parsedToken = JSON.parse(valueJwtToken); // Parseia o valor JSON do cookie
+      console.log("Token JSON parseado:", parsedToken);
+      return parsedToken; // Retorna o token parseado
+    } catch (error) {
+      console.error("Erro ao parsear o token:", error);
+      return false; // Retorna falso se não for possível parsear o token
     }
   }
 
