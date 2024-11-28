@@ -41,7 +41,7 @@ type IMenu = {
   to: string;
   active: boolean;
   disabled: boolean;
-  Icon: React.ElementType;
+  Icon: string;
 };
 
 type ISetUser = {

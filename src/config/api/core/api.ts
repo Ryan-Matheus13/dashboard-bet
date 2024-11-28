@@ -18,6 +18,7 @@ apiCore.interceptors.request.use(async (config) => {
     AccessControlAllowOrigin: "Origin",
     AccessControlAllowMethods: "DELETE, POST, GET, OPTIONS",
     Origin: process.env.NEXT_APP_URL,
+    'Content-Type': "application/json",
     AccessControlAllowHeaders:
       "accept, authorization, content-type, user-agent, x-csrftoken, x-requested-with",
     "ngrok-skip-browser-warning": "any",

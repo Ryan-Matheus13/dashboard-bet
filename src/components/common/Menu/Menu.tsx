@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import { MenuProps } from "./Menu.types";
 import styles from "./Menu.module.css";
@@ -13,6 +14,20 @@ import { useAppSelector } from "@/store/hooks/useAppSelector";
 import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 import { setMenu } from "@/store/applicationStore/actions";
 import { useRouter } from "next/router";
+
+import CastIcon from "@mui/icons-material/Cast";
+import CasinoIcon from "@mui/icons-material/Casino";
+import WebStoriesIcon from "@mui/icons-material/WebStories";
+import CampaignIcon from "@mui/icons-material/Campaign";
+import PermMediaIcon from "@mui/icons-material/PermMedia";
+
+const IconMap: any = {
+  CastIcon: <CastIcon />,
+  CasinoIcon: <CasinoIcon />,
+  WebStoriesIcon: <WebStoriesIcon />,
+  CampaignIcon: <CampaignIcon />,
+  PermMediaIcon: <PermMediaIcon />,
+};
 
 const Menu: React.FC<MenuProps> = ({ className, toggle, isOpen }) => {
   const router = useRouter();
@@ -45,7 +60,7 @@ const Menu: React.FC<MenuProps> = ({ className, toggle, isOpen }) => {
                 className={styles.menuItemActive}
                 disabled={item.disabled}
               >
-                <item.Icon />
+                {IconMap[item.Icon]}
                 {isOpen && <span className={styles.menuText}>{item.name}</span>}
               </IconButton>
             )}
@@ -63,7 +78,7 @@ const Menu: React.FC<MenuProps> = ({ className, toggle, isOpen }) => {
                   },
                 }}
               >
-                <item.Icon />
+                {IconMap[item.Icon]}
                 {isOpen && <span className={styles.menuText}>{item.name}</span>}
               </IconButton>
             )}

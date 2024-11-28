@@ -34,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({
           maxWidth,
         }}
       >
-        {application.loadingModal && <Loading />}
+        {/* {!application.loadingModal && <Loading />} */}
         {title && (
           <Typography
             id="modal-title"

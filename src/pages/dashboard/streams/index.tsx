@@ -1,25 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import dynamic from "next/dynamic";
-import Cookies from "cookies";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from "./streams.module.css";
-import Loading from "@/components/common/Loading/Loading";
-import { setMenu, setStreams } from "@/store/applicationStore/actions";
+import { setMenu } from "@/store/applicationStore/actions";
 import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 import { useAppSelector } from "@/store/hooks/useAppSelector";
-import router from "next/router";
+import Cookies from "cookies";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import MainLayout from "@/components/layouts/MainLayout";
 import PageHeader from "@/components/common/PageHeader/PageHeader";
 import { IMenu } from "@/store/applicationStore/interfaces";
-import AddStreamForm from "@/components/forms/AddStreamForm/AddStreamForm";
-import Modal from "@/components/common/Modal/Modal";
-
+import dynamic from "next/dynamic";
 const StreamCalendar = dynamic(
   () => import("../../../components/common/StreamCalendar/StreamCalendar"),
   {
-    ssr: false,
+    ssr: true,
   }
 );
 
@@ -71,13 +65,13 @@ export async function getServerSideProps(context: any) {
     return { props: { streams, games } };
   } catch (error: any) {
     return {
-      props: { data: [], games: [], error: error.message },
+      props: { streams: [], games: [], error: error.message },
     };
   }
 }
 
 const StreamsPage = ({ streams, games, error }: any) => {
-  const { menu, application } = useAppSelector((store) => store.application);
+  const { menu } = useAppSelector((store) => store.application);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -91,20 +85,6 @@ const StreamsPage = ({ streams, games, error }: any) => {
       });
     }
   }, [dispatch]);
-
-  useEffect(() => {
-    toast.error(String(error));
-    if (error == "Token não fornecido.") {
-      router.push("/auth/login");
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (!error) {
-      dispatch(setStreams(streams));
-      toast.success("Dados Carregados!");
-    }
-  }, [streams]);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -125,20 +105,15 @@ const StreamsPage = ({ streams, games, error }: any) => {
           buttonOnClick={handleOpenModal}
         />
         <div className={styles.streamsContent}>
-          {!streams && <Loading />}
-          {streams && (
-            <StreamCalendar data={streams || application.streams.data} />
-          )}
+          <StreamCalendar
+            streams={streams}
+            games={games}
+            error={error}
+            openAddForm={isOpen}
+            closeAddForm={handleClose}
+          />
         </div>
       </div>
-      <Modal
-        maxWidth="1000px"
-        open={isOpen}
-        close={handleClose}
-        title={"Criar Nova Stream"}
-      >
-        <AddStreamForm close={handleClose} games={games} />
-      </Modal>
     </>
   );
 };

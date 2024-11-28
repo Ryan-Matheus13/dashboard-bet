@@ -11,10 +11,9 @@ import { addStreamSchema } from "./ValidationSchema";
 import InputField from "@/components/common/InputField/InputField";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useAppSelector } from "@/store/hooks/useAppSelector";
 import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 import { setUser, startLogin } from "@/store/applicationStore/actions";
-import Loading from "@/components/common/Loading/Loading";
+// import Loading from "@/components/common/Loading/Loading";
 import StorageUtils from "@/utils/utils.helper";
 import SelectField from "@/components/common/SelectField/SelectField";
 import { InputLabel } from "@mui/material";
@@ -56,8 +55,8 @@ const initialValues: AddStreamFormValues = {
 };
 
 const AddStreamForm: React.FC<AddStreamFormProps> = ({ close, games }) => {
+  console.log("teste: ", games);
   const router = useRouter();
-  const { auth } = useAppSelector((store) => store.application);
   const dispatch = useAppDispatch();
 
   const [gamesOptions, setGamesOptions] = useState<any>([]);
@@ -66,7 +65,7 @@ const AddStreamForm: React.FC<AddStreamFormProps> = ({ close, games }) => {
     if (games.length > 0) {
       const data = games.map((game: any) => {
         return {
-          label: game.name,
+          label: game.gameName,
           value: game.id,
         };
       });
@@ -78,7 +77,8 @@ const AddStreamForm: React.FC<AddStreamFormProps> = ({ close, games }) => {
     initialValues,
     validationSchema: addStreamSchema,
     onSubmit: (values) => {
-      handleLogin(values.username, values.password);
+      console.log(values);
+      // handleLogin(values.username, values.password);
     },
   });
 
@@ -109,7 +109,7 @@ const AddStreamForm: React.FC<AddStreamFormProps> = ({ close, games }) => {
 
   return (
     <form onSubmit={formik.handleSubmit} className={styles.formContainer}>
-      {auth.loading && <Loading />}
+      {/* {!games && <Loading />} */}
       <div className={styles.row}>
         <InputField
           id="liveName"

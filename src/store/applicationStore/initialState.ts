@@ -1,9 +1,4 @@
 import { IApplicationProps } from "./interfaces";
-import CastIcon from "@mui/icons-material/Cast";
-import CasinoIcon from "@mui/icons-material/Casino";
-import WebStoriesIcon from "@mui/icons-material/WebStories";
-import CampaignIcon from "@mui/icons-material/Campaign";
-import PermMediaIcon from "@mui/icons-material/PermMedia";
 
 export const applicationInitialState: IApplicationProps = {
   auth: {
@@ -45,35 +40,35 @@ export const applicationInitialState: IApplicationProps = {
         to: "/dashboard/streams",
         active: true,
         disabled: false,
-        Icon: CastIcon,
+        Icon: "CastIcon",
       },
       {
         name: "Games",
         to: "/dashboard/games",
         active: false,
         disabled: false,
-        Icon: CasinoIcon,
+        Icon: "CasinoIcon",
       },
       {
         name: "Stories",
         to: "/dashboard/stories",
         active: false,
         disabled: false,
-        Icon: WebStoriesIcon,
+        Icon: "WebStoriesIcon",
       },
       {
         name: "Notificações",
         to: "/dashboard/notifications",
         active: false,
         disabled: false,
-        Icon: CampaignIcon,
+        Icon: "CampaignIcon",
       },
       {
         name: "Banners",
         to: "/dashboard/banners",
         active: false,
         disabled: true,
-        Icon: PermMediaIcon,
+        Icon: "PermMediaIcon",
       },
     ],
   },

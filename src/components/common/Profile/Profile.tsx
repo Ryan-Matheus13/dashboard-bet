@@ -39,7 +39,7 @@ const Profile: React.FC<ProfileProps> = () => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
       >
-        <Avatar src={"../../../../public/images/user.jpg"} />
+        <Avatar src={"/images/user.jpg"} />
         <div className={styles.arrowDownIcon}>
           <ArrowDropDown fontSize="large" />
         </div>

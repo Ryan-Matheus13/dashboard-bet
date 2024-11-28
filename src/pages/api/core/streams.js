@@ -51,6 +51,7 @@ export default async function handler(req, res) {
         }
       }
 
+      console.log("stream week: ", streams_week);
       res.status(200).json(streams_week);
     } else {
       res.setHeader("Allow", ["POST"]);

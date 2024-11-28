@@ -10,11 +10,9 @@ export default async function handler(req, res) {
       }
 
       try {
-        const response = await apiCore.get(`/game/`, {
+        const response = await apiCore.get(`/game`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        console.log(response);
 
         if (response.status === 200) {
           res.status(200).json(response.data);

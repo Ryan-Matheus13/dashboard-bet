@@ -39,7 +39,7 @@ export async function getServerSideProps(context: any) {
       throw new Error("Token não fornecido.");
     }
 
-    const responseStream = await fetch(
+    const responseStories = await fetch(
       `${apiUrl}/api/core/stories?token=${token}`,
       {
         method: "GET",
@@ -47,12 +47,12 @@ export async function getServerSideProps(context: any) {
       }
     );
 
-    if (!responseStream.ok) {
-      const data = await responseStream.json();
+    if (!responseStories.ok) {
+      const data = await responseStories.json();
       throw new Error(`${data.message}`);
     }
 
-    const stories = await responseStream.json();
+    const stories = await responseStories.json();
 
     return { props: { stories } };
   } catch (error: any) {
@@ -63,7 +63,7 @@ export async function getServerSideProps(context: any) {
 }
 
 const StoriesPage = ({ stories, error }: any) => {
-  const { menu, application } = useAppSelector((store) => store.application);
+  const { menu } = useAppSelector((store) => store.application);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
