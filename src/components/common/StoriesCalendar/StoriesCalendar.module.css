@@ -1,0 +1,69 @@
+.containerStreamCalendar {
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+  margin: 0 !important;
+  /* border: 1px solid #dcdcdc; */
+  overflow-x: scroll;
+  background-color: transparent;
+  color: #555 !important;
+  border-radius: 0.5rem;
+  width: 100%;
+  gap: 1rem;
+}
+
+.containerStreamCalendar::-webkit-scrollbar {
+  display: none;
+}
+
+.rowStreamCalendar {
+  background-color: transparent;
+  display: flex;
+  gap: 1rem;
+}
+
+.dayContainerStreamCalendar {
+  flex: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 8rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid #dcdcdc;
+}
+
+.dayHeaderStreamCalendar {
+  background-color: #de4251;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
+}
+
+.dayBodyStreamCalendar {
+  background-color: #f8f8f8;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+  padding: 0.3rem 0;
+  font-size: 1rem;
+}
+
+.dayBodyNumberStreamCalendar {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.dayBodyNameStreamCalendar {
+  font-size: 0.7rem;
+}
+
+.cardsContainerStreamCalendar {
+  flex: 1;
+  display: flex;
+  gap: 0.5rem;
+}

@@ -23,6 +23,7 @@ export const applicationSlice = createSlice({
 
     setUser(state, action: PayloadAction<ISetUser>) {
       state.auth.user = action.payload;
+      state.auth.loading = false;
     },
     destroySection(state) {
       state.auth = {

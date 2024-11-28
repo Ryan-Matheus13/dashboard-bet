@@ -59,9 +59,17 @@ export async function getServerSideProps(context: any) {
       throw new Error(`${data.message}`);
     }
 
+    if (responseStream.status != 200 || responseGames.status != 200) {
+      if (responseStream.status == 403 || responseGames.status == 403) {
+        return {
+          props: { streams: [], games: [], error: "Token não fornecido." },
+        };
+      }
+    } 
+    
     const streams = await responseStream.json();
     const games = await responseGames.json();
-
+    
     return { props: { streams, games } };
   } catch (error: any) {
     return {
@@ -73,7 +81,7 @@ export async function getServerSideProps(context: any) {
 const StreamsPage = ({ streams, games, error }: any) => {
   const { menu } = useAppSelector((store) => store.application);
   const dispatch = useAppDispatch();
-
+  
   useEffect(() => {
     if (menu) {
       menu.data.map((menu: IMenu, index: number) => {
@@ -85,17 +93,17 @@ const StreamsPage = ({ streams, games, error }: any) => {
       });
     }
   }, [dispatch]);
-
+  
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  
   const handleClose = () => {
     setIsOpen(false);
   };
-
+  
   const handleOpenModal = () => {
     setIsOpen(true);
   };
-
+  
   return (
     <>
       <div className={styles.streams}>

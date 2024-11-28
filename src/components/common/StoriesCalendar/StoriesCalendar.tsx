@@ -1,24 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from "react";
-import StreamCard from "../StreamCard/StreamCard";
-import styles from "./StreamCalendar.module.css";
-// import Cookies from "cookies";
-import Modal from "../Modal/Modal";
-import AddStreamForm from "@/components/forms/AddStreamForm/AddStreamForm";
-// import { setStreams } from "@/store/applicationStore/actions";
+import styles from "./StoriesCalendar.module.css";
 import router from "next/router";
 import { toast } from "react-toastify";
 import Loading from "../Loading/Loading";
+import StoryCard from "../StoryCard/StoryCard";
+// import Modal from "../Modal/Modal";
+// import AddStreamForm from "@/components/forms/AddStreamForm/AddStreamForm";
 // import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 
-export default function StreamCalendar({
-  streams,
-  games,
+export default function StoriesCalendar({
+  stories,
   error,
-  openAddForm,
-  closeAddForm,
-}: any) {
+}: // openAddForm,
+// closeAddForm,
+any) {
+  console.log("stories: ", stories[0]);
   // const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -26,7 +24,7 @@ export default function StreamCalendar({
       // dispatch(setStreams(streams));
       toast.success("Dados Carregados!");
     }
-  }, [streams]);
+  }, [stories]);
 
   useEffect(() => {
     if (error == "Token não fornecido.") {
@@ -51,14 +49,13 @@ export default function StreamCalendar({
     // setIsOpen(true);
   };
 
-  console.log("streams: ", JSON.stringify(streams));
   return (
     <>
       <div className={styles.containerStreamCalendar}>
-        {!streams && <Loading />}
-        {streams && (
+        {!stories && <Loading />}
+        {stories && (
           <>
-            {streams.map((item: any, index: any) => {
+            {stories.map((item: any, index: any) => {
               return (
                 <div key={index} className={styles.rowStreamCalendar}>
                   <div className={styles.dayContainerStreamCalendar}>
@@ -75,18 +72,18 @@ export default function StreamCalendar({
                     </div>
                   </div>
                   <div className={styles.cardsContainerStreamCalendar}>
-                    {item?.data?.map((stream: any, istream: any) => {
+                    {item?.data?.map((story: any, istory: any) => {
                       return (
                         <div
-                          key={istream}
+                          key={istory}
                           style={{
                             display: "flex",
                             alignItems: "center",
                           }}
                         >
-                          <StreamCard
-                            onEdit={() => handleOpenModal(stream)}
-                            data={stream}
+                          <StoryCard
+                            onEdit={() => handleOpenModal(story)}
+                            data={story}
                           />
                         </div>
                       );
@@ -98,21 +95,21 @@ export default function StreamCalendar({
           </>
         )}
       </div>
-      <Modal
+      {/* <Modal
         maxWidth="1000px"
         open={openAddForm}
         close={closeAddForm}
-        title={"Criar Nova Stream"}
+        title={"Criar Novo Story"}
       >
-        <AddStreamForm close={closeAddForm} games={games || []} />
-      </Modal>
+        <AddStoriesForm close={closeAddForm} />
+      </Modal> */}
       {/* <Modal
         maxWidth="1000px"
-        open={isOpen}
-        close={handleClose}
-        title={"Criar Nova Stream"}
+        open={openEditForm}
+        close={closeEditForm}
+        title={"Editar Story"}
       >
-        <EditStreamForm />
+        <EditStoriesForm close={closeEditForm} />
       </Modal> */}
     </>
   );

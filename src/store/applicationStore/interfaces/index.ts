@@ -44,9 +44,21 @@ type IMenu = {
   Icon: string;
 };
 
+type IStory = {
+  id: string;
+  dayOfWeek: number;
+  title: string;
+  description: string;
+  thumbnail: string;
+  image: string;
+  actionTo: string;
+  actionTarget: string;
+  actionTitle: string;
+};
+
 type ISetUser = {
   name: string;
   token: string;
 };
 
-export type { IApplicationProps, ISetUser, IMenu };
+export type { IApplicationProps, ISetUser, IMenu, IStory };

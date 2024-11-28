@@ -79,6 +79,32 @@ class StorageUtils {
     return [];
   }
 
+  static transformStoryData(array: any, week_day_number: any) {
+    if (array.length > 0) {
+      const transformedData = {
+        day: "",
+        day_name: "",
+        month: "",
+        year: "",
+        data: array.map((story: any) => ({
+          story_id: story.id,
+          story_dayOfWeek: week_day_number,
+          story_title: story.title,
+          story_description: story.description,
+          story_thumbnail: story.thumbnail,
+          story_image: story.image,
+          story_actionTo: story.actionTo,
+          story_actionTarget: story.actionTarget,
+          story_actionTitle: story.actionTitle,
+        })),
+      };
+
+      return transformedData;
+    }
+
+    return [];
+  }
+
   static getDayName(dayNumber: any) {
     const weekDays = [
       "Segunda-feira",
