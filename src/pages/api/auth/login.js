@@ -5,7 +5,6 @@ export default async function handler(req, res) {
     const { username, password } = req.body;
 
     try {
-      console.log("aqui");
       const response = await apiAuth.post(
         `/usuario/login`,
         { username, password },

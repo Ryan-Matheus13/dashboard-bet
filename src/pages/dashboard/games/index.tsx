@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import dynamic from "next/dynamic";
-import styles from "./stories.module.css";
+import styles from "./games.module.css";
 import { setMenu } from "@/store/applicationStore/actions";
 import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 import { useAppSelector } from "@/store/hooks/useAppSelector";
@@ -9,26 +8,19 @@ import { useEffect, useState } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import PageHeader from "@/components/common/PageHeader/PageHeader";
 import { IMenu } from "@/store/applicationStore/interfaces";
-
-const StoriesCalendar = dynamic(
-  () => import("../../../components/common/StoriesCalendar/StoriesCalendar"),
-  {
-    ssr: false,
-  }
-);
+import GameList from "@/components/common/GameList/GameList";
 
 export async function getServerSideProps() {
   const apiUrl = process.env.NEXT_APP_URL ? process.env.NEXT_APP_URL : "";
-  const cdnUrl = process.env.NEXT_CDN_URL ? process.env.NEXT_CDN_URL : "";
 
-  return { props: { apiUrl, cdnUrl } };
+  return { props: { apiUrl } };
 }
 
-const StoriesPage = ({ apiUrl, cdnUrl }: any) => {
+const GamesPage = ({ apiUrl }: any) => {
   const { menu } = useAppSelector((store) => store.application);
   const dispatch = useAppDispatch();
 
-  const [stories, setStories] = useState(null);
+  const [games, setGames] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -40,25 +32,25 @@ const StoriesPage = ({ apiUrl, cdnUrl }: any) => {
           );
         }
 
-        const responseStories = await fetch(`${apiUrl}/api/core/stories`, {
+        const responseGames = await fetch(`${apiUrl}/api/core/games`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
 
-        if (!responseStories.ok) {
-          const data = await responseStories.json();
+        if (!responseGames.ok) {
+          const data = await responseGames.json();
           throw new Error(`${data.message}`);
         }
 
-        if (responseStories.status != 200) {
-          if (responseStories.status == 403) {
+        if (responseGames.status != 200) {
+          if (responseGames.status == 403) {
             throw new Error(`Acesso negado!`);
           }
         }
 
-        const storiesRes = await responseStories.json();
+        const gamesRes = await responseGames.json();
 
-        setStories(storiesRes);
+        setGames(gamesRes);
       } catch (error: any) {
         setError(error.message);
       }
@@ -91,17 +83,16 @@ const StoriesPage = ({ apiUrl, cdnUrl }: any) => {
 
   return (
     <>
-      <div className={styles.stories}>
+      <div className={styles.games}>
         <PageHeader
-          title={"Gerenciamento de Stories"}
-          buttonLabel={"Adicionar Novo Story"}
+          title={"Gerenciamento de Games"}
+          buttonLabel={"Adicionar Novo Game"}
           buttonOnClick={handleOpenModal}
         />
-        <div className={styles.storiesContent}>
-          <StoriesCalendar
-            stories={stories}
+        <div className={styles.gamesContent}>
+          <GameList
+            games={games}
             error={error}
-            cdnUrl={cdnUrl}
             openAddForm={isOpen}
             closeAddForm={handleClose}
           />
@@ -111,8 +102,8 @@ const StoriesPage = ({ apiUrl, cdnUrl }: any) => {
   );
 };
 
-StoriesPage.getLayout = function getLayout(page: React.ReactElement) {
+GamesPage.getLayout = function getLayout(page: React.ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
 
-export default StoriesPage;
+export default GamesPage;

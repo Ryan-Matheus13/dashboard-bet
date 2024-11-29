@@ -37,6 +37,9 @@ export const applicationSlice = createSlice({
 
       state.application = {
         loadingModal: false,
+        page: 1,
+        perPage: 10,
+        total: 1,
         streams: {
           data: [],
           error: null,
@@ -80,6 +83,13 @@ export const applicationSlice = createSlice({
     setStories(state, action: PayloadAction<any>) {
       state.application.stories.data = action.payload;
       state.application.stories.loading = false;
+    },
+
+    pageChange(state, action: PayloadAction<number>) {
+      state.application.page = action.payload;
+    },
+    perPageChange(state, action: PayloadAction<number>) {
+      state.application.perPage = action.payload;
     },
   },
 });

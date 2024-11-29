@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "../../styles/login.module.css";
 import AuthLayout from "@/components/layouts/AuthLayout";
-import LoginForm from "@/components/forms/LoginForm/LoginForm";
+import LoginForm from "@/components/forms/LoginForm/Form";
 
 export async function getServerSideProps() {
   const imageSrc = process.env.NEXT_LOGO ? process.env.NEXT_LOGO : "";

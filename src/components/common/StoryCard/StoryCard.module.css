@@ -1,3 +1,41 @@
 .container {
-  background-color: red;
+  background-color: #dcdcdc;
+  height: 7.5rem;
+  width: 7.5rem;
+  max-height: 7.5rem;
+  max-width: 7.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.container:hover > .storyThumbContainer {
+  opacity: 0.9;
+}
+
+.storyTitle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem;
+  margin: auto;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(
+    0deg,
+    #0c1b18 0,
+    rgba(12, 27, 24, 0.65) 60%,
+    rgba(12, 27, 24, 0) 100%
+  );
+}
+.storyThumbContainer {
+  flex: 1;
+}
+.storyThumb {
+  height: 100%;
+  width: 100%;
 }

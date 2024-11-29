@@ -5,7 +5,7 @@ import StreamCard from "../StreamCard/StreamCard";
 import styles from "./StreamCalendar.module.css";
 // import Cookies from "cookies";
 import Modal from "../Modal/Modal";
-import AddStreamForm from "@/components/forms/AddStreamForm/AddStreamForm";
+import AddStreamForm from "@/components/forms/AddStreamForm/Form";
 // import { setStreams } from "@/store/applicationStore/actions";
 import router from "next/router";
 import { toast } from "react-toastify";
@@ -30,7 +30,9 @@ export default function StreamCalendar({
 
   useEffect(() => {
     if (error == "Token não fornecido.") {
+      toast.error(String(error));
       router.push("/auth/login");
+      return;
     }
     if (error) {
       toast.error(String(error));
@@ -51,7 +53,6 @@ export default function StreamCalendar({
     // setIsOpen(true);
   };
 
-  console.log("streams: ", JSON.stringify(streams));
   return (
     <>
       <div className={styles.containerStreamCalendar}>

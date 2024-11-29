@@ -1,14 +1,16 @@
 import apiCore from "@/config/api/core/api";
+import Cookies from "cookies";
 
 export default async function handler(req, res) {
   try {
+    const cookies = new Cookies(req, res);
+    const token = cookies.get("jwt");
+    if (!token) {
+      res
+        .status(403)
+        .json({ message: response.response.data || "Token não fornecido." });
+    }
     if (req.method === "GET") {
-      const { token } = req.query;
-
-      if (!token) {
-        return res.status(400).json({ message: "Token não fornecido." });
-      }
-
       try {
         const response = await apiCore.get(`/game`, {
           headers: { Authorization: `Bearer ${token}` },

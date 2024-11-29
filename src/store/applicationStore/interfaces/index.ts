@@ -9,6 +9,9 @@ type IApplicationProps = {
   };
   application: {
     loadingModal: boolean;
+    page: number;
+    perPage: number;
+    total: number;
     streams: {
       data: Array<string>;
       error: string | null;

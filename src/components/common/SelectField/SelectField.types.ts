@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SelectChangeEvent } from "@mui/material";
 
 export interface SelectFieldProps {
@@ -5,7 +6,7 @@ export interface SelectFieldProps {
   disabled: boolean;
   name: string;
   label: string;
-  value: string;
+  value: any;
   onChange: (event: SelectChangeEvent) => void;
   options: { label: string; value: string }[];
   error?: boolean;

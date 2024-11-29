@@ -4,7 +4,6 @@ import styles from "./streams.module.css";
 import { setMenu } from "@/store/applicationStore/actions";
 import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 import { useAppSelector } from "@/store/hooks/useAppSelector";
-import Cookies from "cookies";
 import { useEffect, useState } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import PageHeader from "@/components/common/PageHeader/PageHeader";
@@ -17,71 +16,67 @@ const StreamCalendar = dynamic(
   }
 );
 
-export async function getServerSideProps(context: any) {
-  try {
-    const apiUrl = process.env.NEXT_APP_URL;
-
-    if (!apiUrl) {
-      throw new Error(
-        "A variável de ambiente NEXT_APP_URL não está configurada."
-      );
-    }
-
-    const cookies = new Cookies(context.req, context.res);
-    const token = cookies.get("jwt");
-    if (!token) {
-      throw new Error("Token não fornecido.");
-    }
-
-    const responseStream = await fetch(
-      `${apiUrl}/api/core/streams?token=${token}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-
-    if (!responseStream.ok) {
-      const data = await responseStream.json();
-      throw new Error(`${data.message}`);
-    }
-
-    const responseGames = await fetch(
-      `${apiUrl}/api/core/games?token=${token}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-
-    if (!responseGames.ok) {
-      const data = await responseGames.json();
-      throw new Error(`${data.message}`);
-    }
-
-    if (responseStream.status != 200 || responseGames.status != 200) {
-      if (responseStream.status == 403 || responseGames.status == 403) {
-        return {
-          props: { streams: [], games: [], error: "Token não fornecido." },
-        };
-      }
-    } 
-    
-    const streams = await responseStream.json();
-    const games = await responseGames.json();
-    
-    return { props: { streams, games } };
-  } catch (error: any) {
-    return {
-      props: { streams: [], games: [], error: error.message },
-    };
-  }
+export async function getServerSideProps() {
+  const apiUrl = process.env.NEXT_APP_URL ? process.env.NEXT_APP_URL : "";
+  return { props: { apiUrl } };
 }
 
-const StreamsPage = ({ streams, games, error }: any) => {
+const StreamsPage = ({ apiUrl }: any) => {
   const { menu } = useAppSelector((store) => store.application);
   const dispatch = useAppDispatch();
-  
+
+  const [streams, setStreams] = useState(null);
+  const [games, setGames] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (!apiUrl) {
+          throw new Error(
+            "A variável de ambiente NEXT_APP_URL não está configurada."
+          );
+        }
+
+        const responseStream = await fetch(`${apiUrl}/api/core/streams`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (!responseStream.ok) {
+          const data = await responseStream.json();
+          throw new Error(`${data.message}`);
+        }
+
+        const responseGames = await fetch(`${apiUrl}/api/core/games`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (!responseGames.ok) {
+          const data = await responseGames.json();
+          throw new Error(`${data.message}`);
+        }
+
+        if (responseStream.status != 200 || responseGames.status != 200) {
+          if (responseStream.status == 403 || responseGames.status == 403) {
+            throw new Error(`Acesso negado!`);
+          }
+        }
+
+        const streamsRes = await responseStream.json();
+        const gamesRes = await responseGames.json();
+
+        setStreams(streamsRes);
+        setGames(gamesRes);
+      } catch (error: any) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     if (menu) {
       menu.data.map((menu: IMenu, index: number) => {
@@ -93,17 +88,17 @@ const StreamsPage = ({ streams, games, error }: any) => {
       });
     }
   }, [dispatch]);
-  
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  
+
   const handleClose = () => {
     setIsOpen(false);
   };
-  
+
   const handleOpenModal = () => {
     setIsOpen(true);
   };
-  
+
   return (
     <>
       <div className={styles.streams}>

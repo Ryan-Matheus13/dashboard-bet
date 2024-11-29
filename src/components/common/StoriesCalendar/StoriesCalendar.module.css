@@ -1,4 +1,4 @@
-.containerStreamCalendar {
+.containerStoriesCalendar {
   display: flex;
   flex-direction: column;
   padding: 0 !important;
@@ -12,17 +12,17 @@
   gap: 1rem;
 }
 
-.containerStreamCalendar::-webkit-scrollbar {
+.containerStoriesCalendar::-webkit-scrollbar {
   display: none;
 }
 
-.rowStreamCalendar {
+.rowStoriesCalendar {
   background-color: transparent;
   display: flex;
   gap: 1rem;
 }
 
-.dayContainerStreamCalendar {
+.dayContainerStoriesCalendar {
   flex: 0;
   display: flex;
   flex-direction: column;
@@ -30,9 +30,10 @@
   border-radius: 0.5rem;
   overflow: hidden;
   border: 1px solid #dcdcdc;
+  min-height: 7.5rem;
 }
 
-.dayHeaderStreamCalendar {
+.dayHeaderStoriesCalendar {
   background-color: #de4251;
   display: flex;
   justify-content: center;
@@ -41,7 +42,7 @@
   font-size: 0.8rem;
 }
 
-.dayBodyStreamCalendar {
+.dayBodyStoriesCalendar {
   background-color: #f8f8f8;
   flex: 1;
   display: flex;
@@ -53,16 +54,16 @@
   font-size: 1rem;
 }
 
-.dayBodyNumberStreamCalendar {
+.dayBodyNumberStoriesCalendar {
   font-weight: bold;
   font-size: 1.3rem;
 }
 
-.dayBodyNameStreamCalendar {
+.dayBodyNameStoriesCalendar {
   font-size: 0.7rem;
 }
 
-.cardsContainerStreamCalendar {
+.cardsContainerStoriesCalendar {
   flex: 1;
   display: flex;
   gap: 0.5rem;

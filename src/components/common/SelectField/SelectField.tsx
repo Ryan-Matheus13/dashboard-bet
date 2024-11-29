@@ -52,6 +52,9 @@ const SelectField: React.FC<SelectFieldProps> = ({
         "& .MuiOutlinedInput-root": {
           "& input::placeholder": { color: "yellow" }, // Cor do placeholder para inputs internos
         },
+        "& .MuiSelect-select": {
+          color: "#fff",
+        },
       }}
     >
       {label && <InputLabel id={`${id}-label`}>{label}</InputLabel>}

@@ -8,4 +8,6 @@ export const {
   setStreams,
   setGames,
   setStories,
+  pageChange,
+  perPageChange,
 } = applicationSlice.actions;

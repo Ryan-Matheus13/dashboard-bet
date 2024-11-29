@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import styles from "./LoginForm.module.css";
+import styles from "./Form.module.css";
 
 import { useFormik } from "formik";
 
-import { LoginFormValues } from "./LoginForm.types";
 import { loginSchema } from "./ValidationSchema";
 
 import InputField from "@/components/common/InputField/InputField";
@@ -15,6 +14,7 @@ import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 import { setUser, startLogin } from "@/store/applicationStore/actions";
 import Loading from "@/components/common/Loading/Loading";
 import StorageUtils from "@/utils/utils.helper";
+import { LoginFormValues } from "./Form.types";
 
 const initialValues: LoginFormValues = {
   username: "",

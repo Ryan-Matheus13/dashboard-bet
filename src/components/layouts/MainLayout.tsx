@@ -3,7 +3,6 @@ import Head from "next/head";
 import styles from "./MainLayout.module.css";
 import Menu from "../common/Menu/Menu";
 import Header from "../common/Header/Header";
-import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { store } from "@/store";
 import { Provider } from "react-redux";
@@ -36,19 +35,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <div className={styles.pageContainer}>{children}</div>
         </div>
       </main>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
     </Provider>
   );
 };

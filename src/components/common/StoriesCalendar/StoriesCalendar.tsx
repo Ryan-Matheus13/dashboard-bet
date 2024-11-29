@@ -6,22 +6,18 @@ import router from "next/router";
 import { toast } from "react-toastify";
 import Loading from "../Loading/Loading";
 import StoryCard from "../StoryCard/StoryCard";
-// import Modal from "../Modal/Modal";
-// import AddStreamForm from "@/components/forms/AddStreamForm/AddStreamForm";
-// import { useAppDispatch } from "@/store/hooks/useAppDispatch";
+import Modal from "../Modal/Modal";
+import AddStoriesForm from "@/components/forms/AddStoriesForm/Form";
 
 export default function StoriesCalendar({
   stories,
   error,
-}: // openAddForm,
-// closeAddForm,
-any) {
-  console.log("stories: ", stories[0]);
-  // const dispatch = useAppDispatch();
-
+  cdnUrl,
+  openAddForm,
+  closeAddForm,
+}: any) {
   useEffect(() => {
     if (!error) {
-      // dispatch(setStreams(streams));
       toast.success("Dados Carregados!");
     }
   }, [stories]);
@@ -36,42 +32,42 @@ any) {
   }, [error]);
 
   // const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [currentStream, setCurrentStream] = useState<any>(null);
+  // const [currentStory, setCurrentStory] = useState<any>(null);
 
   // const handleClose = () => {
-  //   setCurrentStream(null);
+  //   setCurrentStory(null);
   //   setIsOpen(false);
   // };
 
-  const handleOpenModal = (stream: any) => {
-    console.log(stream);
-    // setCurrentStream(stream);
+  const handleOpenModal = (story: any) => {
+    console.log(story);
+    // setCurrentStory(story);
     // setIsOpen(true);
   };
 
   return (
     <>
-      <div className={styles.containerStreamCalendar}>
+      <div className={styles.containerStoriesCalendar}>
         {!stories && <Loading />}
         {stories && (
           <>
             {stories.map((item: any, index: any) => {
               return (
-                <div key={index} className={styles.rowStreamCalendar}>
-                  <div className={styles.dayContainerStreamCalendar}>
-                    <div className={styles.dayHeaderStreamCalendar}>
+                <div key={index} className={styles.rowStoriesCalendar}>
+                  <div className={styles.dayContainerStoriesCalendar}>
+                    <div className={styles.dayHeaderStoriesCalendar}>
                       <span>{item.month + " " + item.year}</span>
                     </div>
-                    <div className={styles.dayBodyStreamCalendar}>
-                      <span className={styles.dayBodyNumberStreamCalendar}>
+                    <div className={styles.dayBodyStoriesCalendar}>
+                      <span className={styles.dayBodyNumberStoriesCalendar}>
                         {item.day}
                       </span>
-                      <span className={styles.dayBodyNameStreamCalendar}>
+                      <span className={styles.dayBodyNameStoriesCalendar}>
                         {item.day_name}
                       </span>
                     </div>
                   </div>
-                  <div className={styles.cardsContainerStreamCalendar}>
+                  <div className={styles.cardsContainerStoriesCalendar}>
                     {item?.data?.map((story: any, istory: any) => {
                       return (
                         <div
@@ -84,6 +80,7 @@ any) {
                           <StoryCard
                             onEdit={() => handleOpenModal(story)}
                             data={story}
+                            cdnUrl={cdnUrl}
                           />
                         </div>
                       );
@@ -95,14 +92,14 @@ any) {
           </>
         )}
       </div>
-      {/* <Modal
+      <Modal
         maxWidth="1000px"
         open={openAddForm}
         close={closeAddForm}
         title={"Criar Novo Story"}
       >
         <AddStoriesForm close={closeAddForm} />
-      </Modal> */}
+      </Modal>
       {/* <Modal
         maxWidth="1000px"
         open={openEditForm}

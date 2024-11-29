@@ -11,6 +11,9 @@ export const applicationInitialState: IApplicationProps = {
   },
   application: {
     loadingModal: false,
+    page: 1,
+    perPage: 10,
+    total: 1,
     streams: {
       data: [],
       error: null,
