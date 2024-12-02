@@ -6,5 +6,6 @@ export interface TableProps {
   columns?: Array<string>;
   hiddenColumns?: Array<string>;
   isLoading?: boolean;
-  onOpenModal?: any;
+  onEdit?: any;
+  onDelete?: any;
 }

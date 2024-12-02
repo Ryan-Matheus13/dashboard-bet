@@ -8,7 +8,13 @@ import { useEffect, useState } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import PageHeader from "@/components/common/PageHeader/PageHeader";
 import { IMenu } from "@/store/applicationStore/interfaces";
-import GameList from "@/components/common/GameList/GameList";
+import dynamic from "next/dynamic";
+const GameList = dynamic(
+  () => import("../../../components/common/GameList/GameList"),
+  {
+    ssr: true,
+  }
+);
 
 export async function getServerSideProps() {
   const apiUrl = process.env.NEXT_APP_URL ? process.env.NEXT_APP_URL : "";
@@ -63,8 +69,8 @@ const GamesPage = ({ apiUrl }: any) => {
     if (menu) {
       menu.data.map((menu: IMenu, index: number) => {
         if (menu.active) {
-          if (index != 2) {
-            dispatch(setMenu(2));
+          if (index != 1) {
+            dispatch(setMenu(1));
           }
         }
       });

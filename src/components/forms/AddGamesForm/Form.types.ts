@@ -4,6 +4,7 @@ export interface AddGameFormValues {
   gameLink: string;
   gameImgBase64: any;
   gameImgFile: any;
+  gameImgName: string | null;
 }
 
 export interface AddGameFormProps {

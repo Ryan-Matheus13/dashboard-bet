@@ -5,6 +5,7 @@ export interface SelectFieldProps {
   id: string;
   disabled: boolean;
   name: string;
+  background?: string;
   label: string;
   value: any;
   onChange: (event: SelectChangeEvent) => void;

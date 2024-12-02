@@ -1,8 +1,6 @@
 import React from "react";
 import { Modal as ModalMui, Box, Typography } from "@mui/material";
 import { ModalProps } from "./Modal.types";
-import { useAppSelector } from "../../../store/hooks/useAppSelector";
-import Loading from "../Loading/Loading";
 
 const Modal: React.FC<ModalProps> = ({
   open,
@@ -10,8 +8,8 @@ const Modal: React.FC<ModalProps> = ({
   children,
   title,
   maxWidth,
+  minWidth,
 }) => {
-  const { application } = useAppSelector((store) => store.application);
   return (
     <ModalMui
       open={open}
@@ -31,6 +29,7 @@ const Modal: React.FC<ModalProps> = ({
           boxShadow: 24,
           p: 4,
           borderRadius: 2,
+          width: minWidth,
           maxWidth,
         }}
       >

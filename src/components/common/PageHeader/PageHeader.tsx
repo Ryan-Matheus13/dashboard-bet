@@ -27,16 +27,18 @@ const PageHeader: React.FC<PageHeaderProps> = ({
             />
           </div>
         )}
-        <div className={styles.btnRow}>
-          <button
-            title={buttonLabel}
-            onClick={buttonOnClick}
-            className={styles.btn}
-            type="button"
-          >
-            <QueueIcon />
-          </button>
-        </div>
+        {buttonLabel && (
+          <div className={styles.btnRow}>
+            <button
+              title={buttonLabel}
+              onClick={buttonOnClick}
+              className={styles.btn}
+              type="button"
+            >
+              <QueueIcon />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

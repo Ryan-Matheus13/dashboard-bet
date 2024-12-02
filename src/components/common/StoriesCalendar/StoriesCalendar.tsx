@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./StoriesCalendar.module.css";
 import router from "next/router";
 import { toast } from "react-toastify";
@@ -8,6 +8,8 @@ import Loading from "../Loading/Loading";
 import StoryCard from "../StoryCard/StoryCard";
 import Modal from "../Modal/Modal";
 import AddStoriesForm from "@/components/forms/AddStoriesForm/Form";
+import EditStoriesForm from "@/components/forms/EditStoriesForm/Form";
+import DeleteStoriesForm from "@/components/forms/DeleteStoriesForm/Form";
 
 export default function StoriesCalendar({
   stories,
@@ -31,24 +33,32 @@ export default function StoriesCalendar({
     }
   }, [error]);
 
-  // const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [currentStory, setCurrentStory] = useState<any>(null);
+  const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+  const [currentStory, setCurrentStory] = useState<any>(null);
 
-  // const handleClose = () => {
-  //   setCurrentStory(null);
-  //   setIsOpen(false);
-  // };
+  const handleCloseEditModal = () => {
+    setCurrentStory(null);
+    setIsOpenEdit(false);
+  };
 
-  const handleOpenModal = (story: any) => {
-    console.log(story);
-    // setCurrentStory(story);
-    // setIsOpen(true);
+  const handleOpenEditModal = (game: any) => {
+    setCurrentStory(game);
+    setIsOpenEdit(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsOpenDelete(false);
+  };
+
+  const handleOpenDeleteModal = () => {
+    setIsOpenDelete(true);
   };
 
   return (
     <>
       <div className={styles.containerStoriesCalendar}>
-        {!stories && <Loading />}
+        {!stories && <Loading transparent={true} />}
         {stories && (
           <>
             {stories.map((item: any, index: any) => {
@@ -78,7 +88,7 @@ export default function StoriesCalendar({
                           }}
                         >
                           <StoryCard
-                            onEdit={() => handleOpenModal(story)}
+                            onEdit={() => handleOpenEditModal(story)}
                             data={story}
                             cdnUrl={cdnUrl}
                           />
@@ -100,14 +110,30 @@ export default function StoriesCalendar({
       >
         <AddStoriesForm close={closeAddForm} />
       </Modal>
-      {/* <Modal
+      <Modal
         maxWidth="1000px"
-        open={openEditForm}
-        close={closeEditForm}
+        open={isOpenEdit}
+        close={handleCloseEditModal}
         title={"Editar Story"}
       >
-        <EditStoriesForm close={closeEditForm} />
-      </Modal> */}
+        <EditStoriesForm
+          close={handleCloseEditModal}
+          values={currentStory}
+          openDelete={handleOpenDeleteModal}
+        />
+      </Modal>
+      <Modal
+        maxWidth="800px"
+        minWidth="600px"
+        open={isOpenDelete}
+        close={handleCloseDeleteModal}
+        title={""}
+      >
+        <DeleteStoriesForm
+          values={currentStory}
+          close={handleCloseDeleteModal}
+        />
+      </Modal>
     </>
   );
 }

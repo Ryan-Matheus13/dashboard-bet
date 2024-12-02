@@ -2,32 +2,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
 import styles from "./Form.module.css";
-import { addGameSchema } from "./ValidationSchema";
 
 import { useFormik } from "formik";
 
-import { AddGameFormProps, AddGameFormValues } from "./Form.types";
+import { EditGameFormProps, EditGameFormValues } from "./Form.types";
 
 import InputField from "@/components/common/InputField/InputField";
 import { toast } from "react-toastify";
 import { InputLabel } from "@mui/material";
 import Loading from "@/components/common/Loading/Loading";
 
-const initialValues: AddGameFormValues = {
+const initialValues: EditGameFormValues = {
+  id: "",
   gameName: "",
+  updateImg: false,
   gameLink: "",
   gameImgFile: null,
-  gameImgName: null,
   gameImgBase64: null,
 };
 
-const AddGamesForm: React.FC<AddGameFormProps> = ({ close }) => {
+const EditGamesForm: React.FC<EditGameFormProps> = ({ close, values }) => {
   const [loading, setLoading] = useState(false);
+  const [updateImage, setUpdateImage] = useState(false);
 
-  const formik = useFormik<AddGameFormValues>({
-    initialValues,
-    validationSchema: addGameSchema,
+  const formik = useFormik<EditGameFormValues>({
+    initialValues: values || initialValues,
     onSubmit: (values) => {
+      values.updateImg = updateImage;
       handleSubmit(values);
     },
   });
@@ -89,18 +90,21 @@ const AddGamesForm: React.FC<AddGameFormProps> = ({ close }) => {
     setFieldValue("gameImgName", event.target.files[0].name);
   };
 
-  const handleSubmit = async (data: AddGameFormValues) => {
-    delete data.gameImgFile;
+  const handleSubmit = async (dados: EditGameFormValues) => {
+    const data = dados;
+    if (data.gameImgFile) {
+      delete data.gameImgFile;
+    }
     setLoading(true);
     try {
       const response = await fetch(`/api/core/games`, {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        toast.success("Game criado com sucesso!");
+        toast.success("Game salvo com sucesso!");
         setLoading(false);
         close();
       } else {
@@ -109,8 +113,8 @@ const AddGamesForm: React.FC<AddGameFormProps> = ({ close }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      console.error("Erro ao tentar criar um game:", error);
-      toast.error("Erro ao tentar criar um game.");
+      console.error("Erro ao tentar editar um game:", error);
+      toast.error("Erro ao tentar editar um game.");
     }
   };
 
@@ -140,32 +144,42 @@ const AddGamesForm: React.FC<AddGameFormProps> = ({ close }) => {
           helperText={formik.touched.gameLink ? formik.errors.gameLink : ""}
         />
       </div>
-
-      <InputLabel id={"gameImgFile"} style={{ color: "white" }}>
-        Imagem do Game
-      </InputLabel>
-      <InputField
-        id="gameImgFile"
-        label=""
-        name="gameImgFile"
-        type="file"
-        value={formik.values.gameImgFile}
-        onChange={(event) =>
-          handleFileChange(event, formik.setFieldValue, "gameImgFile")
-        }
-        error={formik.touched.gameImgFile && !!formik.errors.gameImgFile}
-        helperText={
-          typeof formik.errors.gameImgBase64 === "string"
-            ? formik.errors.gameImgBase64
-            : typeof formik.errors.gameImgFile === "string"
-            ? formik.errors.gameImgFile
-            : undefined
-        }
-      />
+      {updateImage && (
+        <>
+          <InputLabel id={"gameImgFile"} style={{ color: "white" }}>
+            Imagem do Game
+          </InputLabel>
+          <InputField
+            id="gameImgFile"
+            label=""
+            name="gameImgFile"
+            type="file"
+            value={formik.values.gameImgFile}
+            onChange={(event) =>
+              handleFileChange(event, formik.setFieldValue, "gameImgFile")
+            }
+            error={formik.touched.gameImgFile && !!formik.errors.gameImgFile}
+            helperText={
+              typeof formik.errors.gameImgBase64 === "string"
+                ? formik.errors.gameImgBase64
+                : typeof formik.errors.gameImgFile === "string"
+                ? formik.errors.gameImgFile
+                : undefined
+            }
+          />
+        </>
+      )}
 
       <div className={styles.btnRow}>
+        <button
+          className={styles.btn}
+          type="button"
+          onClick={() => setUpdateImage(updateImage ? false : true)}
+        >
+          {updateImage ? "Ocultar Imagem" : "Atualizar Imagem"}
+        </button>
         <button className={styles.btn} type="submit">
-          Criar Game
+          Salvar
         </button>
         <button className={styles.btnSecondary} type="button" onClick={close}>
           Cancelar
@@ -175,4 +189,4 @@ const AddGamesForm: React.FC<AddGameFormProps> = ({ close }) => {
   );
 };
 
-export default AddGamesForm;
+export default EditGamesForm;

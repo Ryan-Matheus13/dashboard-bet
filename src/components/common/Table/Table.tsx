@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // MODO MOBILE COM LINHAS VIRANDO CARDS
@@ -21,7 +23,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 // import Pagination from "../Pagination/Pagination";
 import ActionButton from "../ActionButton/ActionButton";
-import { Chip, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 // import SearchIcon from "@mui/icons-material/Search";
 import Loading from "../Loading/Loading";
 import { toast } from "react-toastify";
@@ -81,7 +83,8 @@ const Table: React.FC<TableProps> = ({
   error,
   columns,
   hiddenColumns,
-  onOpenModal,
+  onEdit,
+  onDelete,
   isLoading,
 }) => {
   // const { application } = useAppSelector((store) => store.application);
@@ -201,60 +204,29 @@ const Table: React.FC<TableProps> = ({
                         )
                         .map((key) => (
                           <>
-                            <TableCell
-                              style={{
-                                fontWeight: key == "status" ? "bold" : "normal",
-                                color: key == "status" ? "#035656" : "#555",
-                              }}
-                            >
-                              {key == "category" && (
-                                <Stack direction="column" spacing={1}>
-                                  <Chip
-                                    onClick={() =>
-                                      onOpenModal(
-                                        row,
-                                        "Atualizar Categoria",
-                                        "category"
-                                      )
-                                    }
-                                    label={row[key]}
-                                    color="info"
-                                    variant="outlined"
-                                  />
-                                  <Chip
-                                    onClick={() =>
-                                      onOpenModal(
-                                        row,
-                                        "Atualizar Categoria",
-                                        "category"
-                                      )
-                                    }
-                                    label={row["subCategory"]}
-                                    color="success"
-                                    variant="outlined"
-                                  />
-                                </Stack>
-                              )}
-                              {key == "team" && (
-                                <Stack direction="column" spacing={1}>
-                                  <Chip
-                                    onClick={() =>
-                                      onOpenModal(row, "Atualizar Time", "team")
-                                    }
-                                    label={row[key].name}
-                                    color="warning"
-                                    variant="outlined"
-                                  />
-                                </Stack>
-                              )}
-                              {key != "category" && key != "team" && (
-                                <>
-                                  {row[key].length > 100
-                                    ? row[key].substring(0, 100) + "..."
-                                    : row[key]}
-                                </>
-                              )}
-                            </TableCell>
+                            {key == "gameImg" && (
+                              <TableCell
+                                style={{
+                                  fontWeight: "normal",
+                                  color: "#555",
+                                  width: 120,
+                                }}
+                              >
+                                <img height={60} width={60} src={row[key]} />
+                              </TableCell>
+                            )}
+                            {key != "gameImg" && (
+                              <TableCell
+                                style={{
+                                  fontWeight: "normal",
+                                  color: "#555",
+                                }}
+                              >
+                                {row[key].length > 100
+                                  ? row[key].substring(0, 100) + "..."
+                                  : row[key]}
+                              </TableCell>
+                            )}
                           </>
                         ))}
                       <TableCell
@@ -268,13 +240,13 @@ const Table: React.FC<TableProps> = ({
                             <ActionButton
                               title="Editar Game"
                               className={styles.btnAction}
-                              onClick={() => {}}
+                              onClick={() => onEdit(row)}
                               Icon={() => <EditIcon fontSize="small" />}
                             />
                             <ActionButton
                               title="Excluir Game"
                               className={styles.btnAction}
-                              onClick={() => {}}
+                              onClick={() => onDelete(row)}
                               Icon={() => <DeleteIcon fontSize="small" />}
                             />
                           </Stack>

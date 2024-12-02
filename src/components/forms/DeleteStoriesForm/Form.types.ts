@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface EditStoryFormValues {
+export interface DeleteStoriesFormValues {
   id?: string;
   dayOfWeek?: number | null;
   title?: string;
@@ -13,8 +13,7 @@ export interface EditStoryFormValues {
   actionTitle?: string;
 }
 
-export interface EditStoryFormProps {
+export interface DeleteStoriesFormProps {
   close: () => void;
-  openDelete: () => void;
-  values: EditStoryFormValues;
+  values: DeleteStoriesFormValues;
 }

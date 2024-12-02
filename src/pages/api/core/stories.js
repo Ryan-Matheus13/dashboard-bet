@@ -99,6 +99,38 @@ export default async function handler(req, res) {
           res.status(500).json({ message: "Internal Server Error" });
         }
       }
+    } else if (req.method === "PUT") {
+      const bodyData = req.body;
+      const {id} = bodyData
+      delete bodyData.id
+
+      try {
+        const response = await apiCore.put(`/stories/${id}`, bodyData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        console.log(response)
+
+        if (response.status === 200) {
+          res.status(200).json(response.data);
+        } else if (response.status === 403) {
+          res
+            .status(403)
+            .json({ message: response.response.data || "Acesso Negado!" });
+        }
+      } catch (error) {
+        if (error.message) {
+          res
+            .status(error.status)
+            .json({ message: error.message || "Algo deu errado!" });
+        } else if (error.response) {
+          res
+            .status(error.response.status)
+            .json({ message: error.response.data || "Algo deu errado!" });
+        } else {
+          res.status(500).json({ message: "Internal Server Error" });
+        }
+      }
     } else {
       res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).json({ message: `Method ${req.method} Not Allowed` });

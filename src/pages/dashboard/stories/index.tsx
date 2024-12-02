@@ -13,7 +13,7 @@ import { IMenu } from "@/store/applicationStore/interfaces";
 const StoriesCalendar = dynamic(
   () => import("../../../components/common/StoriesCalendar/StoriesCalendar"),
   {
-    ssr: false,
+    ssr: true,
   }
 );
 

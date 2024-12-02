@@ -10,3 +10,8 @@
   background-color: #00000056;
   z-index: 100;
 }
+
+
+.transparent {
+  background-color: transparent;
+}

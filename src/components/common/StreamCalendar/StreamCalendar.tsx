@@ -56,7 +56,7 @@ export default function StreamCalendar({
   return (
     <>
       <div className={styles.containerStreamCalendar}>
-        {!streams && <Loading />}
+        {!streams && <Loading transparent={true} />}
         {streams && (
           <>
             {streams.map((item: any, index: any) => {

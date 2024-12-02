@@ -5,6 +5,7 @@ export interface InputFieldProps extends Omit<TextFieldProps, "variant"> {
   id: string;
   label: string;
   type?: string;
+  background?: string;
   value: any;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   error?: boolean;

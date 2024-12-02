@@ -105,6 +105,22 @@ class StorageUtils {
     return [];
   }
 
+  static formatStory(input: any): any {
+    return {
+      id: input.story_id || "",
+      dayOfWeek: input.story_dayOfWeek ?? null,
+      title: input.story_title || "",
+      description: input.story_description || "",
+      thumbnailFile: input.story_thumbnail || null,
+      imageFile: input.story_image || null,
+      thumbnailBase64: null,
+      imageBase64: null,
+      actionTo: input.story_actionTo || "",
+      actionTarget: input.story_actionTarget || "",
+      actionTitle: input.story_actionTitle || "",
+    };
+  }
+
   static getDayName(dayNumber: any) {
     const weekDays = [
       "Segunda-feira",

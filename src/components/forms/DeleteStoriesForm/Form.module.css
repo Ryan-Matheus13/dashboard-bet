@@ -6,7 +6,7 @@
 
 .btnRow {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding-top: 1rem;
   gap: 1rem;
@@ -39,4 +39,5 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
 }
