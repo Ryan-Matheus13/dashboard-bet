@@ -10,7 +10,8 @@ import AddStreamForm from "@/components/forms/AddStreamForm/Form";
 import router from "next/router";
 import { toast } from "react-toastify";
 import Loading from "../Loading/Loading";
-// import { useAppDispatch } from "@/store/hooks/useAppDispatch";
+import { useAppDispatch } from "@/store/hooks/useAppDispatch";
+import { destroySection } from "@/store/applicationStore/actions";
 
 export default function StreamCalendar({
   streams,
@@ -19,7 +20,7 @@ export default function StreamCalendar({
   openAddForm,
   closeAddForm,
 }: any) {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!error) {
@@ -29,8 +30,9 @@ export default function StreamCalendar({
   }, [streams]);
 
   useEffect(() => {
-    if (error == "Token não fornecido.") {
+    if (error == "Algo deu errado!") {
       toast.error(String(error));
+      dispatch(destroySection());
       router.push("/auth/login");
       return;
     }
