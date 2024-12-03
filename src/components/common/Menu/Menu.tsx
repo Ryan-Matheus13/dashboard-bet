@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Image from "next/image";
 import { MenuProps } from "./Menu.types";
 import styles from "./Menu.module.css";
 
