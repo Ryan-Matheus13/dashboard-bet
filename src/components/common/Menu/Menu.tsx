@@ -1,10 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import { MenuProps } from "./Menu.types";
 import styles from "./Menu.module.css";
 
 import { IconButton } from "@mui/material";
-import Logo from "../../../../public/images/logo.webp";
 
 import MenuOpen from "@mui/icons-material/MenuOpenRounded";
 import MenuClose from "@mui/icons-material/CloseRounded";
@@ -42,7 +42,11 @@ const Menu: React.FC<MenuProps> = ({ className, toggle, isOpen }) => {
   return (
     <div className={styles.menu + " " + className}>
       <IconButton>
-        <Image className={styles.logo} src={Logo} alt={"Logo"} />
+        <img
+          className={styles.logo}
+          src={"../../../../public/images/logo.webp"}
+          alt={"Logo"}
+        />
       </IconButton>
 
       <IconButton onClick={toggle} sx={{ color: "white" }}>
