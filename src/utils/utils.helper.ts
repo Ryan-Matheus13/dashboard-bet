@@ -121,6 +121,29 @@ class StorageUtils {
     };
   }
 
+  static formatStream(input: any): any {
+    return {
+      id: input.stream_id || "",
+      dayOfWeek: input.stream_week_day_number || null,
+      liveName: input.stream_name || "",
+      liveLink: input.stream_live_link || "",
+      liveStartHour: input.stream_start_hour || "",
+      liveEndHour: input.stream_end_hour || "",
+      thumbImgBase64: null,
+      thumbImgName: input.stream_gif
+        ? input.stream_gif.split("/").pop() || ""
+        : "",
+      gameId: input.stream_game?.id || "",
+      audienceLive: input.stream_specs.toString() || "",
+      gifImgBase64: null,
+      gifImgName: input.stream_gif
+        ? input.stream_gif.split("/").pop() || ""
+        : "",
+      gifImgFile: null,
+      thumbImgFile: null,
+    };
+  }
+
   static getDayName(dayNumber: any) {
     const weekDays = [
       "Segunda-feira",

@@ -64,7 +64,6 @@ const EditStoriesForm: React.FC<EditStoryFormProps> = ({
   values,
   openDelete,
 }) => {
-  console.log("values: ", values);
   const [loading, setLoading] = useState(false);
 
   const formik = useFormik<EditStoryFormValues>({

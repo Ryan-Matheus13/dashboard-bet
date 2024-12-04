@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import StreamCard from "../StreamCard/StreamCard";
 import styles from "./StreamCalendar.module.css";
 // import Cookies from "cookies";
@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import Loading from "../Loading/Loading";
 import { useAppDispatch } from "@/store/hooks/useAppDispatch";
 import { destroySection } from "@/store/applicationStore/actions";
+import EditStreamForm from "@/components/forms/EditStreamForm/Form";
+import DeleteStreamForm from "@/components/forms/DeleteStreamForm/Form";
 
 export default function StreamCalendar({
   streams,
@@ -46,18 +48,26 @@ export default function StreamCalendar({
     }
   }, [error]);
 
-  // const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [currentStream, setCurrentStream] = useState<any>(null);
+  const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+  const [currentStream, setCurrentStream] = useState<any>(null);
 
-  // const handleClose = () => {
-  //   setCurrentStream(null);
-  //   setIsOpen(false);
-  // };
+  const handleCloseEditModal = () => {
+    setCurrentStream(null);
+    setIsOpenEdit(false);
+  };
 
-  const handleOpenModal = (stream: any) => {
-    console.log(stream);
-    // setCurrentStream(stream);
-    // setIsOpen(true);
+  const handleOpenEditModal = (game: any) => {
+    setCurrentStream(game);
+    setIsOpenEdit(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsOpenDelete(false);
+  };
+
+  const handleOpenDeleteModal = () => {
+    setIsOpenDelete(true);
   };
 
   return (
@@ -93,7 +103,7 @@ export default function StreamCalendar({
                           }}
                         >
                           <StreamCard
-                            onEdit={() => handleOpenModal(stream)}
+                            onEdit={() => handleOpenEditModal(stream)}
                             data={stream}
                           />
                         </div>
@@ -114,14 +124,31 @@ export default function StreamCalendar({
       >
         <AddStreamForm close={closeAddForm} games={games || []} />
       </Modal>
-      {/* <Modal
+      <Modal
         maxWidth="1000px"
-        open={isOpen}
-        close={handleClose}
-        title={"Criar Nova Stream"}
+        open={isOpenEdit}
+        close={handleCloseEditModal}
+        title={"Editar Stream"}
       >
-        <EditStreamForm />
-      </Modal> */}
+        <EditStreamForm
+          close={handleCloseEditModal}
+          values={currentStream}
+          openDelete={handleOpenDeleteModal}
+          games={games || []}
+        />
+      </Modal>
+      <Modal
+        maxWidth="800px"
+        minWidth="600px"
+        open={isOpenDelete}
+        close={handleCloseDeleteModal}
+        title={""}
+      >
+        <DeleteStreamForm
+          values={currentStream}
+          close={handleCloseDeleteModal}
+        />
+      </Modal>
     </>
   );
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface EditStreamFormValues {
+export interface DeleteStreamFormValues {
   id: string;
   liveName?: string;
   liveLink?: string;
@@ -14,13 +14,9 @@ export interface EditStreamFormValues {
   thumbImgFile?: any;
   gifImgName?: string;
   dayOfWeek?: number | null;
-  updateImg?: boolean;
-  updateGif?: boolean;
 }
 
-export interface EditStreamFormProps {
+export interface DeleteStreamFormProps {
   close: () => void;
-  openDelete: () => void;
-  games: any;
-  values: EditStreamFormValues;
+  values: DeleteStreamFormValues;
 }

@@ -62,8 +62,8 @@ const initialValues: AddStreamFormValues = {
 };
 
 const AddStreamForm: React.FC<AddStreamFormProps> = ({ close, games }) => {
-  const [gamesOptions, setGamesOptions] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [gamesOptions, setGamesOptions] = useState<any>([]);
 
   useEffect(() => {
     if (games.length > 0) {
@@ -81,29 +81,9 @@ const AddStreamForm: React.FC<AddStreamFormProps> = ({ close, games }) => {
     initialValues,
     validationSchema: addStreamSchema,
     onSubmit: (values) => {
-      console.log("values: ", values);
       handleSubmit(values);
     },
   });
-
-  const validateVideoDuration = (file: any, maxDurationInSeconds: any) => {
-    return new Promise((resolve, reject) => {
-      const video = document.createElement("video");
-      video.preload = "metadata";
-
-      video.onloadedmetadata = () => {
-        window.URL.revokeObjectURL(video.src);
-        const duration = video.duration;
-        resolve(duration <= maxDurationInSeconds);
-      };
-
-      video.onerror = () => {
-        reject(new Error("Não foi possível validar a duração do vídeo."));
-      };
-
-      video.src = URL.createObjectURL(file);
-    });
-  };
 
   async function getBase64(file: any) {
     return new Promise((resolve, reject) => {
@@ -119,24 +99,9 @@ const AddStreamForm: React.FC<AddStreamFormProps> = ({ close, games }) => {
   const handleFileChange = async (
     event: any,
     setFieldValue: any,
-    name: any,
-    maxDuration = 30
+    name: any
   ) => {
     const file = event.target.files[0];
-
-    if (file && file.type.startsWith("video")) {
-      try {
-        const isValidDuration = await validateVideoDuration(file, maxDuration);
-        if (!isValidDuration) {
-          alert("O vídeo deve ter no máximo 30 segundos!");
-          return;
-        }
-      } catch (error) {
-        console.error("Erro ao validar a duração do vídeo:", error);
-        alert("Não foi possível validar a duração do vídeo.");
-        return;
-      }
-    }
 
     setFieldValue(name, file);
     if (name == "thumbImgFile") {
