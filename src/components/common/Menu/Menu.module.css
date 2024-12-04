@@ -36,12 +36,12 @@
 .menuItemActive {
   color: white !important;
   background-color: var(--primary-color) !important;
-  width: 100%;
-  display: flex;
-  max-width: 11rem;
-  gap: 1rem;
-  border-radius: 0.5rem;
-  align-items: center;
+  width: 100% !important;
+  display: flex !important;
+  max-width: 11rem !important;
+  gap: 1rem !important;
+  border-radius: 0.5rem !important;
+  align-items: center !important;
 }
 .menuText {
   font-size: 1rem;
