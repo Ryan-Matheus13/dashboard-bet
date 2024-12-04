@@ -24,31 +24,28 @@ export default async function handler(req, res) {
         if (response.status === 200) {
           const data = response.data;
 
-          // Cria um array vazio para cada dia da semana
           const storiesByWeekDay = Array(7)
             .fill(null)
             .map(() => []);
 
-          // Organiza as histórias por dia da semana
           data.forEach((story) => {
-            const dayIndex = story.dayOfWeek; // dayOfWeek deve estar entre 0 (segunda) e 6 (domingo)
-            if (dayIndex >= 0 && dayIndex <= 6) {
-              storiesByWeekDay[dayIndex].push(
+            const dayIndex = story.dayOfWeek;
+            if (dayIndex >= 1 && dayIndex <= 7) {
+              storiesByWeekDay[dayIndex - 1].push(
                 StorageUtils.transformStoryData([story], dayIndex).data[0]
               );
             }
           });
 
-          // Monta a estrutura `stories_week` com base nos dias da semana
           storiesByWeekDay.forEach((stories, index) => {
-            const dayInfo = weekDays[index]; // Obtém informações sobre o dia da semana
+            const dayInfo = weekDays[index];
 
             stories_week.push({
               day: dayInfo.dayNumber,
               day_name: dayInfo.dayName.toUpperCase(),
               month: dayInfo.month,
               year: dayInfo.year,
-              data: stories, // Histórias do respectivo dia
+              data: stories,
             });
           });
 

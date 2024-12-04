@@ -16,31 +16,31 @@ import Loading from "@/components/common/Loading/Loading";
 
 const dayOptions: any = [
   {
-    value: 0,
+    value: 1,
     label: "Segunda-feira",
   },
   {
-    value: 1,
+    value: 2,
     label: "Terça-feira",
   },
   {
-    value: 2,
+    value: 3,
     label: "Quarta-feira",
   },
   {
-    value: 3,
+    value: 4,
     label: "Quinta-feira",
   },
   {
-    value: 4,
+    value: 5,
     label: "Sexta-feira",
   },
   {
-    value: 5,
+    value: 6,
     label: "Sábado",
   },
   {
-    value: 6,
+    value: 7,
     label: "Domigo",
   },
 ];
