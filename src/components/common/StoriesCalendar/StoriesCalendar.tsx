@@ -10,6 +10,8 @@ import Modal from "../Modal/Modal";
 import AddStoriesForm from "@/components/forms/AddStoriesForm/Form";
 import EditStoriesForm from "@/components/forms/EditStoriesForm/Form";
 import DeleteStoriesForm from "@/components/forms/DeleteStoriesForm/Form";
+import { useAppDispatch } from "@/store/hooks/useAppDispatch";
+import { destroySection } from "@/store/applicationStore/actions";
 
 export default function StoriesCalendar({
   stories,
@@ -18,6 +20,8 @@ export default function StoriesCalendar({
   openAddForm,
   closeAddForm,
 }: any) {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (!error && stories) {
       if (stories.length > 0) {
@@ -27,8 +31,15 @@ export default function StoriesCalendar({
   }, [stories]);
 
   useEffect(() => {
-    if (error == "Token não fornecido.") {
+    if (
+      error == "Algo deu errado!" ||
+      error == "Token não fornecido." ||
+      error == "Internal Server Error"
+    ) {
+      toast.error(String(error));
+      dispatch(destroySection());
       router.push("/auth/login");
+      return;
     }
     if (error) {
       toast.error(String(error));

@@ -2,6 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { applicationInitialState } from "./initialState";
 import { IMenu, ISetUser } from "./interfaces";
+import StorageUtils from "@/utils/utils.helper";
 
 export const applicationSlice = createSlice({
   name: "application",
@@ -61,6 +62,8 @@ export const applicationSlice = createSlice({
           loading: false,
         },
       };
+
+      StorageUtils.deleteDataJwtToken();
     },
     startLogin(state) {
       state.auth.loading = true;

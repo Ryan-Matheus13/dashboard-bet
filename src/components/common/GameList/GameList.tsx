@@ -10,6 +10,8 @@ import Table from "../Table/Table";
 import AddGamesForm from "@/components/forms/AddGamesForm/Form";
 import EditGamesForm from "@/components/forms/EditGamesForm/Form";
 import DeleteGamesForm from "@/components/forms/DeleteGamesForm/Form";
+import { useAppDispatch } from "@/store/hooks/useAppDispatch";
+import { destroySection } from "@/store/applicationStore/actions";
 
 export default function GameList({
   games,
@@ -17,6 +19,8 @@ export default function GameList({
   openAddForm,
   closeAddForm,
 }: any) {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (!error && games) {
       if (games.length > 0) {
@@ -26,8 +30,15 @@ export default function GameList({
   }, [games]);
 
   useEffect(() => {
-    if (error == "Token não fornecido.") {
+    if (
+      error == "Algo deu errado!" ||
+      error == "Token não fornecido." ||
+      error == "Internal Server Error"
+    ) {
+      toast.error(String(error));
+      dispatch(destroySection());
       router.push("/auth/login");
+      return;
     }
     if (error) {
       toast.error(String(error));
