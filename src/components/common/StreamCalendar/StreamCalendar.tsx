@@ -31,7 +31,7 @@ export default function StreamCalendar({
   }, [streams]);
 
   useEffect(() => {
-    if (error == "Algo deu errado!") {
+    if (error == "Algo deu errado!" || error == "Token não fornecido.") {
       toast.error(String(error));
       dispatch(destroySection());
       router.push("/auth/login");
