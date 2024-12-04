@@ -6,6 +6,10 @@ import { Provider } from "react-redux";
 import { store } from "../store";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CacheProvider } from "@emotion/react";
+import createEmotionCache from "@/createEmotionCache";
+
+const clientSideEmotionCache = createEmotionCache();
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -19,7 +23,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(
     <Provider store={store}>
-      <Component {...pageProps} />
+      <CacheProvider value={clientSideEmotionCache}>
+        <Component {...pageProps} />
+      </CacheProvider>
       <ToastContainer
         position="top-right"
         autoClose={5000}
