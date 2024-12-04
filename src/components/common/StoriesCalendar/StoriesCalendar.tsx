@@ -19,8 +19,10 @@ export default function StoriesCalendar({
   closeAddForm,
 }: any) {
   useEffect(() => {
-    if (!error) {
-      toast.success("Dados Carregados!");
+    if (!error && stories) {
+      if (stories.length > 0) {
+        toast.success("Dados Carregados!");
+      }
     }
   }, [stories]);
 

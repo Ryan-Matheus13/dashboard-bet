@@ -23,9 +23,10 @@ export default function StreamCalendar({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!error) {
-      // dispatch(setStreams(streams));
-      toast.success("Dados Carregados!");
+    if (!error && streams) {
+      if (streams.length > 0) {
+        toast.success("Dados Carregados!");
+      }
     }
   }, [streams]);
 

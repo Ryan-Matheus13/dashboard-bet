@@ -18,8 +18,10 @@ export default function GameList({
   closeAddForm,
 }: any) {
   useEffect(() => {
-    if (!error) {
-      toast.success("Dados Carregados!");
+    if (!error && games) {
+      if (games.length > 0) {
+        toast.success("Dados Carregados!");
+      }
     }
   }, [games]);
 
