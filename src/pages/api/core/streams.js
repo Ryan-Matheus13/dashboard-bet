@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import apiCore from "@/config/api/core/api";
 import StorageUtils from "@/utils/utils.helper";
 import Cookies from "cookies";
@@ -7,9 +5,9 @@ import bodyParser from 'body-parser';
 
 const jsonMiddleware = bodyParser.json({ limit: '10mb' });
 
-function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) {
+function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
+    fn(req, res, (result) => {
       if (result instanceof Error) {
         return reject(result);
       }
