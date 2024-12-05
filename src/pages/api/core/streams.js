@@ -1,25 +1,17 @@
 import apiCore from "@/config/api/core/api";
 import StorageUtils from "@/utils/utils.helper";
 import Cookies from "cookies";
-import bodyParser from 'body-parser';
 
-const jsonMiddleware = bodyParser.json({ limit: '10mb' });
-
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      resolve(result);
-    });
-  });
-}
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "5mb",
+    },
+  },
+};
 
 export default async function handler(req, res) {
   try {
-    await runMiddleware(req, res, jsonMiddleware);
-
     const cookies = new Cookies(req, res);
     const token = cookies.get("jwt");
     if (!token) {

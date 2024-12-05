@@ -1,24 +1,16 @@
 import apiCore from "@/config/api/core/api";
 import Cookies from "cookies";
-import bodyParser from 'body-parser';
 
-const jsonMiddleware = bodyParser.json({ limit: '10mb' });
-
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      resolve(result);
-    });
-  });
-}
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "5mb",
+    },
+  },
+};
 
 export default async function handler(req, res) {
   try {
-    await runMiddleware(req, res, jsonMiddleware);
-
     const cookies = new Cookies(req, res);
     const token = cookies.get("jwt");
     if (!token) {
@@ -82,8 +74,8 @@ export default async function handler(req, res) {
       }
     } else if (req.method === "PUT") {
       const bodyData = req.body;
-      const {id} = bodyData
-      delete bodyData.id
+      const { id } = bodyData;
+      delete bodyData.id;
 
       try {
         const response = await apiCore.put(`/game/${id}`, bodyData, {
@@ -112,7 +104,7 @@ export default async function handler(req, res) {
       }
     } else if (req.method === "DELETE") {
       const bodyData = req.body;
-      const {id} = bodyData
+      const { id } = bodyData;
 
       try {
         const response = await apiCore.delete(`/game/${id}`, {
